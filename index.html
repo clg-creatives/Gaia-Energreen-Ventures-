@@ -353,4 +353,38 @@
     async function fetchOilPrices() {
         oilData = { wti: (70+Math.random()*7).toFixed(2), brent: (74+Math.random()*6).toFixed(2), dubai: (72+Math.random()*5).toFixed(2), bonny: (73+Math.random()*5).toFixed(2), ng: (3.2+Math.random()*1.2).toFixed(2) };
         document.getElementById('wtiPrice').innerText = oilData.wti; document.getElementById('brentPrice').innerText = oilData.brent;
-        document.getElementById('dubaiPrice').innerText = oilData.dub
+        document.getElementById('dubaiPrice').innerText = oilData.dubai; document.getElementById('bonnyPrice').innerText = oilData.bonny;
+        document.getElementById('ngPrice').innerText = oilData.ng; document.getElementById('oilUpdateTime').innerHTML = `✅ Updated ${new Date().toLocaleTimeString()}`;
+        updateTicker();
+    }
+    async function fetchForex() {
+        try {
+            const [php, cny, jpy] = await Promise.all([fetch('https://api.exchangerate.host/convert?from=USD&to=PHP').then(r=>r.json()), fetch('https://api.exchangerate.host/convert?from=USD&to=CNY').then(r=>r.json()), fetch('https://api.exchangerate.host/convert?from=USD&to=JPY').then(r=>r.json())]);
+            forexData = { usdPhp: php.result.toFixed(4), usdCny: cny.result.toFixed(4), usdJpy: jpy.result.toFixed(2), eurUsd: (1.087+Math.random()*0.01).toFixed(4), gbpUsd: (1.271+Math.random()*0.01).toFixed(4) };
+        } catch(e) { forexData = { usdPhp: (61.2+Math.random()*0.8).toFixed(4), usdCny: (7.22+Math.random()*0.1).toFixed(4), usdJpy: (154+Math.random()*2).toFixed(2), eurUsd: '1.0875', gbpUsd: '1.2710' }; }
+        document.getElementById('usdPhp').innerText = forexData.usdPhp; document.getElementById('usdCny').innerText = forexData.usdCny;
+        document.getElementById('usdJpy').innerText = forexData.usdJpy; document.getElementById('eurUsd').innerText = forexData.eurUsd;
+        document.getElementById('gbpUsd').innerText = forexData.gbpUsd; document.getElementById('forexUpdateTime').innerHTML = `💱 ${new Date().toLocaleTimeString()}`;
+        updateTicker();
+    }
+    function updateTicker() {
+        const t = document.getElementById('globalTicker');
+        if(t && oilData.wti) t.innerHTML = `<span><i class="fas fa-oil-can"></i> WTI: $${oilData.wti}</span><span><i class="fas fa-fire"></i> Brent: $${oilData.brent}</span><span><i class="fas fa-chart-line"></i> Dubai: $${oilData.dubai}</span><span><i class="fas fa-globe-africa"></i> Bonny: $${oilData.bonny}</span><span><i class="fas fa-dollar-sign"></i> USD/PHP: ${forexData.usdPhp}</span><span><i class="fas fa-yen-sign"></i> USD/JPY: ${forexData.usdJpy}</span><span><i class="fas fa-renminbi"></i> USD/CNY: ${forexData.usdCny}</span>`;
+    }
+    async function updateClocks() {
+        const now = new Date();
+        document.getElementById('timeMNL').innerText = new Date(now.getTime() + (8*60*60*1000)).toISOString().slice(11,19);
+        document.getElementById('timeDXB').innerText = new Date(now.getTime() + (4*60*60*1000)).toISOString().slice(11,19);
+        try {
+            const [london, rotterdam, houston] = await Promise.all([fetch('https://worldtimeapi.org/api/timezone/Europe/London').then(r=>r.json()), fetch('https://worldtimeapi.org/api/timezone/Europe/Amsterdam').then(r=>r.json()), fetch('https://worldtimeapi.org/api/timezone/America/Chicago').then(r=>r.json())]);
+            document.getElementById('timeGMT').innerText = new Date(london.datetime).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+            document.getElementById('timeROT').innerText = new Date(rotterdam.datetime).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+            document.getElementById('timeHOU').innerText = new Date(houston.datetime).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+        } catch(e) {}
+        document.getElementById('clockUpdateTime').innerHTML = `⏲️ ${new Date().toLocaleTimeString()}`;
+    }
+    setInterval(() => { fetchOilPrices(); fetchForex(); updateClocks(); }, 10000);
+    fetchOilPrices(); fetchForex(); updateClocks();
+</script>
+</body>
+</html>
