@@ -1,1 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>GAIA ENERGREEN VENTURES INC. | Integrated Energy & Commodity Solutions</title>
+    <!-- Google Fonts & Simple CSS Reset -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #1a2c3e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header & Navigation */
+        .site-header {
+            background: #0a2f2a;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            gap: 20px;
+        }
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #E6F7EC, #A3D9A5);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .logo p {
+            font-size: 0.7rem;
+            color: #b8dfc2;
+            font-weight: 500;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #e2f0e6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #F7C35C;
+            border-bottom: 1px solid #F7C35C;
+        }
+
+        /* buttons & cards */
+        .btn-primary {
+            background: #F7B32B;
+            color: #0a2f2a;
+            font-weight: 700;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s;
+            border: none;
+            font-size: 0.9rem;
+        }
+        .btn-primary:hover {
+            background: #e09e1a;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 80px 0;
+            border-bottom: 1px solid #e4e9ed;
+        }
+        .section-alt {
+            background-color: #ffffff;
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: #0a2f2a;
+            letter-spacing: -0.5px;
+        }
+        .section-sub {
+            font-size: 1.1rem;
+            color: #4b6b5e;
+            max-width: 700px;
+            margin-bottom: 48px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+            transition: 0.25s;
+            border: 1px solid #eef2f0;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 40px rgba(0, 0, 0, 0.08);
+        }
+        .legal-badge {
+            background: #eef3ea;
+            border-left: 6px solid #2b7a4b;
+            padding: 20px 24px;
+            border-radius: 20px;
+            margin-top: 32px;
+        }
+        .executive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+        .exec-card {
+            background: #f8faf7;
+            border-radius: 24px;
+            padding: 20px;
+            text-align: center;
+        }
+        footer {
+            background: #0c2d26;
+            color: #cddfd5;
+            padding: 48px 0 32px;
+            font-size: 0.85rem;
+        }
+        hr {
+            border-color: #2b5a4a;
+            margin: 20px 0;
+        }
+        @media (max-width: 780px) {
+            .nav-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .section {
+                padding: 48px 0;
+            }
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #F7B32B;
+        }
+        .align-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container nav-bar">
+        <div class="logo">
+            <h1>GAIA ENERGREEN VENTURES INC.</h1>
+            <p>Integrated Energy & Commodity Solutions | Est. 2022 (Legacy since 1997)</p>
+        </div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#purpose">Purpose & Powers</a>
+            <a href="#services">Capabilities</a>
+            <a href="#leadership">Leadership</a>
+            <a href="#credentials">Credentials</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Hero Section -->
+    <section style="background: linear-gradient(110deg, #eef5f0 0%, #daece1 100%); padding: 80px 0 70px;">
+        <div class="container">
+            <div class="grid-2" style="align-items: center;">
+                <div>
+                    <span style="background: #0a2f2a20; padding: 6px 14px; border-radius: 40px; font-size: 0.8rem; font-weight: 600;">SEC Reg. No. 2022030047986-00</span>
+                    <h1 style="font-size: 3rem; font-weight: 800; margin: 20px 0 16px; line-height: 1.2;">Wholesale fuels,<br>Renewable future</h1>
+                    <p style="font-size: 1.1rem; color: #2a4d3e; margin-bottom: 32px;">Philippine domestic corporation engaged in wholesale of solid, liquid & gaseous fuels, energy consultancy, independent power production, and commodity trading — underpinned by our Articles of Incorporation and global mandate.</p>
+                    <a href="#purpose" class="btn-primary">Explore Corporate Mandate →</a>
+                </div>
+                <div class="align-center">
+                    <div style="background: #ffffffcc; backdrop-filter: blur(8px); border-radius: 40px; padding: 24px;">
+                        <div class="stat-number">₱10M</div>
+                        <div>Authorized Capital Stock</div>
+                        <div class="stat-number" style="margin-top: 16px;">100% Filipino-owned</div>
+                        <div>Compliant with Philippine Constitution</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Corporate Foundation -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="grid-2">
+                <div>
+                    <span style="color:#2b7a4b; font-weight: 700;">CORPORATE IDENTITY</span>
+                    <h2 class="section-title" style="margin-top: 8px;">GAIA ENERGREEN VENTURES INC.<br>(Trading as GAIA ENERGREEN RESOURCES)</h2>
+                    <p>Registered with the Philippine SEC on March 30, 2022, under the Revised Corporation Code. Principal office at 1206 Trade & Finance Tower, BGC, Taguig City. BIR Registered (TIN 010-681-099-000) with perpetual corporate existence.</p>
+                    <p>Our core purpose, as enshrined in the Articles of Incorporation, is to engage in wholesale trading of all kinds of goods, fuels, petroleum products, import/export, and merchandise brokerage — alongside renewable energy consultancy and logistics management, strictly without public investment solicitation.</p>
+                    <div class="legal-badge">
+                        <strong>📜 Legal foundation — Primary Purpose:</strong> “To engage in buying, selling, distributing, marketing on wholesale basis solid, liquid and gaseous fuels and related products, and act as main distributor, manufacturer's representative, merchandise broker, commission merchant, factors or agents, without engaging in investment solicitation from public investors.”
+                    </div>
+                </div>
+                <div>
+                    <div style="background: #f4f9f0; border-radius: 28px; padding: 28px;">
+                        <h3 style="font-weight: 700;">Global Footprint</h3>
+                        <ul style="margin-top: 16px; list-style: none;">
+                            <li>🌏 Asia Regional HQ: Tokyo, Japan</li>
+                            <li>🌏 ASPAC Regional: Rotorua, New Zealand / Melbourne, Australia</li>
+                            <li>🌍 Europe Regional: Rogaska Slatina, Slovenia</li>
+                            <li>🏝️ Indonesia/Indochina: Jakarta, Indonesia</li>
+                            <li>📌 Business Office: BGC, Philippines (Central Hub)</li>
+                        </ul>
+                        <hr>
+                        <p><strong>Market Capitalization (Consolidated as of 2Q 2019):</strong> USD 100 million<br>Legacy operations since 1997 (Sydney, NSW, Australia) – integrated into GEVI structure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Corporate Purpose & Secondary Powers (aligned with AoI) -->
+    <section id="purpose" class="section-alt">
+        <div class="container">
+            <h2 class="section-title">⚖️ Corporate Purposes & Statutory Powers</h2>
+            <p class="section-sub">As defined in the Articles of Incorporation & By-Laws (SEC Approved), GEVI operates strictly within wholesale trading, energy value chain, and renewable energy development — without engaging in investment contracts with the public.</p>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>📦 Primary (Wholesale Trading)</h3>
+                    <p>Wholesale of solid, liquid and gaseous fuels and related products (BOC Import Permit: CCN IM0009636013). All kinds of goods, merchandise, export/import, consignment, distributor agreements and merchandise brokerage on fee/contract basis (Industry Code G461).</p>
+                </div>
+                <div class="card">
+                    <h3>⛽ Secondary & Ancillary</h3>
+                    <p>Retail marketing, petroleum product distribution, operation of convenience stores supplementary to gasoline stations, domestic water transport & freight forwarding, and renewable energy project advisory. Independent Power Producer (IPP) and waste-to-energy consultancy.</p>
+                </div>
+                <div class="card">
+                    <h3>🌱 Renewable & Green Direction</h3>
+                    <p>Renewable energy consultants, wind/solar farm development, green biomass, carbon credit advisory, and energy transition services — perfectly aligned with the primary purpose “goods of every kind and description” including energy commodities and sustainable infrastructure.</p>
+                </div>
+                <div class="card">
+                    <h3>🔐 Important restriction</h3>
+                    <p>Corporation SHALL NOT solicit, accept or take investments/placements from the public nor issue investment contracts. No secondary license for securities dealing. This ensures compliance with SEC rules.</p>
+                </div>
+            </div>
+            <div class="legal-badge" style="margin-top: 24px;">
+                <strong>✅ Alignment with Executive Profile Summary:</strong> The company’s activities — Oil & Gas Trader, IPP, Logistics Manager, Commodity Trader, Renewable Energy Consultants — are perfectly underpinned by the AoI’s broad wholesale and distribution mandate, plus import-export powers. The “Energy Development and Consultancy, Geological Surveying, Depot Hub EPC” are derivative of the power to act as merchandise broker, commission merchant and to enter into service contracts for goods and related products.
+            </div>
+        </div>
+    </section>
+
+    <!-- Services & Capabilities -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="align-center">
+                <h2 class="section-title">Core Capabilities & Industry Solutions</h2>
+                <p class="section-sub">Driven by AoI's allowance to trade, broker, and manage all kinds of energy products and value-added services</p>
+            </div>
+            <div class="grid-2">
+                <div>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 16px;">🛢️ <strong>Oil & Gas Trading</strong> – Crude, refined products, LNG/LPG with major refinery mandates (Gazprom, Rosneft, Lukoil, Pertamina, ADNOC, QP).</li>
+                        <li style="margin-bottom: 16px;">🔋 <strong>Renewable Energy & IPP</strong> – Solar, wind, green biomass, waste-to-energy projects, independent power producer.</li>
+                        <li style="margin-bottom: 16px;">🚢 <strong>Logistics & Freight Management</strong> – Domestic water transport, forwarding, and warehousing solutions.</li>
+                        <li style="margin-bottom: 16px;">📊 <strong>Energy Consultancy & Market Entry</strong> – Geological survey, EPC advisory for oil depots, decarbonization strategies.</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 16px;">🏭 <strong>Wholesale fuels & related products</strong> – BOC accredited import permit, compliant with wholesale trading of solid/liquid/gaseous fuels.</li>
+                        <li style="margin-bottom: 16px;">🤝 <strong>Manufacturer’s Representative & Brokerage</strong> – Acting as factor or commission agent for energy equipment and commodities.</li>
+                        <li style="margin-bottom: 16px;">🌍 <strong>Carbon Credit & Sustainability</strong> – Carbon credit trading, net-zero advisory, environmental compliance.</li>
+                        <li style="margin-bottom: 16px;">📦 <strong>General Merchandise Distribution</strong> – Import/export of industrial goods, retail marketing up to allowed extent.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership & Executives (from profile summary + AoI officers) -->
+    <section id="leadership" class="section-alt">
+        <div class="container">
+            <h2 class="section-title">Board of Directors & Executive Leadership</h2>
+            <p class="section-sub">As per Articles of Incorporation and By-Laws — composed of five (5) initial directors and elected officers holding office for one year; all are Filipino citizens in compliance with constitutional equity requirements.</p>
+            <div class="executive-grid">
+                <div class="exec-card"><strong>Clarence M. Morales</strong><br>President & CEO<br><span style="font-size: 0.8rem;">Director & Incorporator</span></div>
+                <div class="exec-card"><strong>Marjorie Luzcel B. Arenas</strong><br>VP-Finance / Treasurer<br><span style="font-size: 0.8rem;">Director & Incorporator</span></div>
+                <div class="exec-card"><strong>Sarah Zainab A. Francisco</strong><br>VP-Business Development<br><span style="font-size: 0.8rem;">Senior Officer</span></div>
+                <div class="exec-card"><strong>Eva Christine B. Taguiped</strong><br>VP-Administration<br><span style="font-size: 0.8rem;">Director & Incorporator</span></div>
+                <div class="exec-card"><strong>Luzviminda O. Marinda</strong><br>Director<br><span style="font-size: 0.8rem;">Incorporator</span></div>
+                <div class="exec-card"><strong>Isasi Rebenito Taguiped</strong><br>Director<br><span style="font-size: 0.8rem;">Incorporator / Shareholder</span></div>
+                <div class="exec-card"><strong>Leonard Kamasi</strong><br>Indonesia/Indochina Country Director<br><span style="font-size: 0.8rem;">Asia Regional Management</span></div>
+            </div>
+            <div class="legal-badge" style="margin-top: 24px;">
+                <strong>📌 Corporate Governance:</strong> The By-Laws mandate annual stockholders meeting every 1st Monday of March. Quorum = majority of outstanding capital stock. Officers cannot act as President & Secretary simultaneously. The Board holds monthly regular meetings. Fiscal year: March 8 to March 7 annually.
+            </div>
+        </div>
+    </section>
+
+    <!-- Credentials, financials, import permit & BIR/SEC -->
+    <section id="credentials" class="section">
+        <div class="container">
+            <h2 class="section-title">Regulatory Credentials & Financial Standing</h2>
+            <p class="section-sub">Valid government registrations and audited financial position as of December 31, 2024</p>
+            <div class="grid-2">
+                <div>
+                    <div class="card">
+                        <h3>📄 SEC Certificate of Incorporation</h3>
+                        <p>Company Reg. No. 2022030047986-00, issued March 30, 2022. Perpetual existence. All incorporators Filipino with minimum paid-up capital (₱625,000 initially, increased to ₱10M authorized, fully paid as of 2024).</p>
+                        <hr>
+                        <h3>🏦 BIR Certificate of Registration</h3>
+                        <p>TIN: 010-681-099-000, RDO No. 044 – Taguig City-Pateros. Registered for wholesale trading, VAT and percentage tax compliance.</p>
+                        <hr>
+                        <h3>🛃 BOC Import Permit</h3>
+                        <p>CCN IM0009636013, valid until April 2025, authorizing importation of solid/liquid/gaseous fuels and related products.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="card">
+                        <h3>📊 Audited Financial Highlights (FY 2024)</h3>
+                        <p><strong>Total Assets:</strong> ₱466.78 Million<br>
+                        <strong>Total Liabilities:</strong> ₱490.0 Million (Advances from officers/shareholders)<br>
+                        <strong>Total Equity:</strong> (₱23.22 Million) capital deficiency due to operating losses, but management committed to capital infusion and revenue growth. Board assured stakeholders of ongoing support, additional paid-up capital and subscription of remaining unissued shares.</p>
+                        <p><em>Auditor:</em> Nonita A. Dela Paz, CPA – unqualified opinion with emphasis on going concern but with concrete management plans.</p>
+                        <p><strong>Bank Reference:</strong> Corporate FCDU Savings account (USD 0.00 balance for permit renewal purpose) with existing deposit relationship.</p>
+                        <a href="#" class="btn-primary" style="margin-top: 12px; background: #2b7a4b; color:white;">View Compliance summary</a>
+                    </div>
+                </div>
+            </div>
+            <div class="legal-badge" style="margin-top: 24px; display: flex; flex-wrap: wrap; justify-content: space-between;">
+                <span>✅ <strong>Restriction on Stock Transfer:</strong> No transfer reducing Filipino ownership below required percentage.</span>
+                <span>✅ <strong>No Public Solicitation:</strong> Strictly compliant with SEC’s “no secondary license” clause.</span>
+                <span>✅ <strong>Articles & By-Laws:</strong> Registered with SEC CRMD.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Vision & Core Values (From Profile Summary) -->
+    <section class="section-alt" style="background: #eef3ec;">
+        <div class="container">
+            <div class="grid-2">
+                <div>
+                    <h2 class="section-title">🌿 Our Mission</h2>
+                    <p style="font-size: 1.05rem;">“To build an inclusive future where clean, renewable power empowers communities to grow. We deliver innovative solutions that support energy equity and ecological balance — forging partnerships grounded in trust and transparency.”</p>
+                    <h2 class="section-title" style="margin-top: 32px;">✨ Vision</h2>
+                    <p>Accelerate the global renewable energy revolution as the premier provider of integrated solutions; make sustainable power accessible and affordable for all.</p>
+                </div>
+                <div>
+                    <h2 class="section-title">💚 Core Values</h2>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 20px;">
+                        <span style="background:#0a2f2a; color:white; padding: 8px 20px; border-radius: 60px;">Labor</span>
+                        <span style="background:#0a2f2a; color:white; padding: 8px 20px; border-radius: 60px;">Integrity</span>
+                        <span style="background:#0a2f2a; color:white; padding: 8px 20px; border-radius: 60px;">Fairness</span>
+                        <span style="background:#0a2f2a; color:white; padding: 8px 20px; border-radius: 60px;">Equality</span>
+                    </div>
+                    <p style="margin-top: 28px;">“L.I.F.E — labor, integrity, fairness, equality: the foundation of our sustainable future.”</p>
+                    <hr>
+                    <p><strong>Member:</strong> ClaMor Leisure Group Holdings Inc. <br>International partnerships: Japan, NZ, Slovenia, Indonesia, Australia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- final footer: contact info and legal alignment note -->
+    <footer>
+        <div class="container">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px;">
+                <div>
+                    <h3 style="color: #F7C35C;">GAIA ENERGREEN VENTURES INC.</h3>
+                    <p>1206 Trade & Finance Tower, 32nd St. cor 7th Ave.<br>Bonifacio Global City, Taguig City 1630 Philippines</p>
+                    <p>📞 +63 2 7902 0900 | +63 2 7747 0460<br>📧 info@gaia-energreen.com<br>🌐 www.gaia-energreen.com</p>
+                </div>
+                <div>
+                    <p><strong>SEC Registration No.</strong> 2022030047986-00<br><strong>TIN:</strong> 010-681-099-000<br><strong>BIR RDO:</strong> 044 – Taguig<br><strong>Industry Code:</strong> G461 (Wholesale on fee/contract basis)</p>
+                    <p style="margin-top: 12px;">Import Permit: CCN IM0009636013 (exp. 2025)<br>Audited FS: FYE Dec 31, 2024</p>
+                </div>
+                <div>
+                    <p><strong>Legal alignment:</strong> All business activities strictly conform to the Articles of Incorporation as approved by SEC and BOC permits. No investment solicitation or securities dealing. Wholesale trading of energy, renewables, and consultancy are duly authorized.</p>
+                </div>
+            </div>
+            <hr>
+            <div style="text-align: center; font-size: 0.75rem;">© 2025 GAIA ENERGREEN VENTURES INC. | Built on corporate credentials, AoI & By-Laws | Integrated energy solutions with a greener commitment.</div>
+        </div>
+    </footer>
+</main>
+</body>
+</html>
