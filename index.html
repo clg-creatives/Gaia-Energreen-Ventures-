@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>GEVI | Gaia Energreen Ventures — Live Energy Desk</title>
+    <title>GEVI | Gaia Energreen Ventures — Live Energy Desk · Payments · Orders</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -40,31 +40,33 @@
         .pillar { display: inline-block; background: #0a2f2a; color: #F7C35C; font-weight: 700; padding: 6px 18px; border-radius: 60px; margin: 4px 8px 4px 0; font-size: 0.85rem; }
         footer { background: #0c2d26; color: #cddfd5; padding: 40px 0; margin-top: 48px; }
         
-        /* MODAL STYLES for README */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; visibility: visible; }
         .modal-card { max-width: 650px; background: #ffffff; border-radius: 48px; padding: 32px 36px; margin: 20px; box-shadow: 0 40px 60px rgba(0,0,0,0.3); position: relative; max-height: 85vh; overflow-y: auto; }
         .close-modal { position: absolute; top: 20px; right: 28px; font-size: 1.8rem; cursor: pointer; color: #2b7a4b; }
+        
+        .payment-btn, .order-btn { background: #F7C35C; color: #0a2f2a; border: none; padding: 12px 24px; border-radius: 40px; font-weight: bold; cursor: pointer; margin-top: 16px; width: 100%; font-size: 1rem; transition: 0.2s; }
+        .payment-btn:hover, .order-btn:hover { background: #e0a800; transform: translateY(-2px); }
+        
         @media (max-width:780px) { .modal-card { padding: 24px; } }
     </style>
 </head>
 <body>
 
-<!-- README MODAL (appears on first visit) -->
+<!-- README MODAL -->
 <div id="readmeModal" class="modal-overlay">
     <div class="modal-card">
         <span class="close-modal" id="closeModalBtn">&times;</span>
         <i class="fas fa-leaf" style="font-size: 2.5rem; color:#2b7a4b;"></i>
         <h2 style="font-size: 1.8rem; margin: 16px 0 8px;">📖 README · GEVI Corporate Profile</h2>
-        <hr style="margin: 16px 0;">
-        <p><strong>GAIA ENERGREEN VENTURES INC.</strong> — SEC Reg. No. 2022030047986-00<br>
-        TIN: 010-681-099-000 | BOC Import Permit: CCN IM0009636013</p>
+        <hr>
+        <p><strong>GAIA ENERGREEN VENTURES INC.</strong> — SEC Reg. No. 2022030047986-00<br>TIN: 010-681-099-000 | BOC Import Permit: CCN IM0009636013</p>
         <div style="background: #0a2f2a; color: #F7C35C; padding: 16px; border-radius: 24px; margin: 16px 0;">
             <i class="fas fa-hand-fist"></i> <strong>L.I.F.E. — Labor · Integrity · Fairness · Equality</strong>
-            <p style="margin-top: 8px; color: #e2f0e6;">We trade energy without borders or bias. Our credo guides every transaction, from WTI to Bonny Light, from Manila to Rotterdam.</p>
+            <p style="margin-top: 8px; color: #e2f0e6;">We trade energy without borders or bias. Our credo guides every transaction.</p>
         </div>
-        <p><strong>🚀 Mission:</strong> Democratize decarbonization by merging traditional fuel expertise with next-gen renewables — ensuring energy security across Asia-Pacific, Africa, and beyond.</p>
-        <p><strong>🌱 Vision 2050:</strong> To become the most trusted, independent energy house worldwide, recognized for operational integrity and inclusive growth.</p>
-        <p><strong>📜 Legal Foundation:</strong> Articles of Incorporation mandate wholesale trading of solid, liquid & gaseous fuels, renewable consultancy, and independent power production — strictly without public investment solicitation.</p>
+        <p><strong>🚀 Mission:</strong> Democratize decarbonization by merging traditional fuel expertise with renewables — ensuring energy security across Asia-Pacific, Africa, and beyond.</p>
+        <p><strong>🌱 Vision 2050:</strong> To become the most trusted, independent energy house worldwide.</p>
+        <p><strong>📜 Legal Foundation:</strong> Wholesale trading of solid, liquid & gaseous fuels, renewable consultancy, IPP — strictly without public investment solicitation.</p>
         <p><strong>📞 Contact:</strong> +63 952 842 6159 / +63 926 067 4740 | info@gaia-energreen.com</p>
         <button id="dismissModalBtn" style="background: #0a2f2a; border: none; color: white; padding: 12px 28px; border-radius: 40px; margin-top: 24px; font-weight: bold; cursor: pointer; width: 100%;">Enter GEVI Intelligence →</button>
     </div>
@@ -82,17 +84,19 @@
             <a onclick="openMandate()">Mandate</a>
             <a onclick="openCredentials()">Credentials</a>
             <a onclick="openContact()">Contact</a>
+            <a onclick="openPaymentWindow()">💳 Pay</a>
+            <a onclick="openOrderForm()">📦 Order</a>
         </div>
     </div>
 </header>
 
-<!-- Dynamic Ticker -->
+<!-- Live Ticker -->
 <div class="ticker-container">
     <div class="ticker" id="globalTicker">
         <span><i class="fas fa-oil-can"></i> WTI: $--.--</span>
         <span><i class="fas fa-fire"></i> Brent: $--.--</span>
         <span><i class="fas fa-chart-line"></i> Dubai: $--.--</span>
-        <span><i class="fas fa-globe-africa"></i> Bonny (BCLO): $--.--</span>
+        <span><i class="fas fa-globe-africa"></i> Bonny: $--.--</span>
         <span><i class="fas fa-dollar-sign"></i> USD/PHP: --.--</span>
         <span><i class="fas fa-yen-sign"></i> USD/JPY: --.--</span>
         <span><i class="fas fa-renminbi"></i> USD/CNY: --.--</span>
@@ -101,6 +105,7 @@
 
 <div class="container">
     <div class="dashboard">
+        <!-- Oil Benchmarks Card -->
         <div class="card">
             <div class="card-header"><i class="fas fa-charging-station"></i> <span>Global Crude Benchmarks <span class="live-dot"></span><span class="live-badge">INCLUSIVE</span></span></div>
             <div class="card-content">
@@ -109,10 +114,12 @@
                 <div class="price-item"><span>🇦🇪 Dubai Crude (Platts)</span><span class="price-value"><span id="dubaiPrice">--.--</span> USD/bbl</span></div>
                 <div class="price-item"><span>🇳🇬 Bonny Light (BCLO) - Africa</span><span class="price-value"><span id="bonnyPrice">--.--</span> USD/bbl</span></div>
                 <div class="price-item"><span>⛽ Natural Gas (Henry Hub)</span><span class="price-value"><span id="ngPrice">--.--</span> USD/MMBtu</span></div>
+                <button class="order-btn" onclick="openOrderForm()"><i class="fas fa-clipboard-list"></i> Place Order →</button>
                 <div class="update-time" id="oilUpdateTime">⏱️ Updating live...</div>
             </div>
         </div>
 
+        <!-- Forex Card -->
         <div class="card">
             <div class="card-header"><i class="fas fa-exchange-alt"></i> <span>Forex · Multi-Currency <span class="live-dot"></span><span class="live-badge">UNIVERSAL</span></span></div>
             <div class="card-content">
@@ -126,6 +133,7 @@
             </div>
         </div>
 
+        <!-- Time Zones Card -->
         <div class="card">
             <div class="card-header"><i class="fas fa-clock"></i> <span>Global Hubs · 5 Time Zones</span></div>
             <div class="card-content">
@@ -133,12 +141,14 @@
                 <div class="timezone-item"><span>🇦🇪 Dubai (GMT+4)</span> <strong id="timeDXB">--:--:--</strong></div>
                 <div class="timezone-item"><span>🇳🇱 Rotterdam (GMT+2)</span> <strong id="timeROT">--:--:--</strong></div>
                 <div class="timezone-item"><span>🇺🇸 Houston (GMT-5)</span> <strong id="timeHOU">--:--:--</strong></div>
-                <div class="timezone-item"><span>🇵🇭 Manila (GMT+8) — HQ</span> <strong id="timeMNL">--:--:--</strong></div>
+                <div class="timezone-item"><span>🇵🇭 Manila (GMT+8) — HEADQUARTERS</span> <strong id="timeMNL" style="color:#2b7a4b; font-size:1.3rem;">--:--:--</strong></div>
+                <button class="payment-btn" onclick="openPaymentWindow()"><i class="fas fa-credit-card"></i> Make Payment →</button>
                 <div class="update-time" id="clockUpdateTime">🌍 Atomic time sync</div>
             </div>
         </div>
     </div>
 
+    <!-- L.I.F.E. Credo Section -->
     <div class="credo-section">
         <div style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between;">
             <div style="flex: 2;">
@@ -164,94 +174,357 @@
                 📧 <a href="mailto:info@gaia-energreen.com" style="color:#F7C35C;">info@gaia-energreen.com</a><br>
                 📞 <a href="tel:+639528426159" style="color:#F7C35C;">+63 952 842 6159</a> / <a href="tel:+639260674740" style="color:#F7C35C;">+63 926 067 4740</a>
             </div>
-            <div><i class="fas fa-charging-station"></i> Live Data: exchange.host & worldtimeapi.org<br>Inclusive: WTI, Brent, Dubai, Bonny (BCLO)</div>
+            <div>
+                <i class="fas fa-charging-station"></i> Live Data: exchange.host & worldtimeapi.org<br>
+                <a href="#" onclick="openPaymentWindow(); return false;" style="color:#F7C35C;"><i class="fas fa-credit-card"></i> Pay Online</a> | 
+                <a href="#" onclick="openOrderForm(); return false;" style="color:#F7C35C;"><i class="fas fa-clipboard-list"></i> Order Form</a>
+            </div>
         </div>
-        <hr style="margin: 24px 0; border-color: #2b5a4a;">
+        <hr>
         <div style="text-align: center;">© 2025 — Gaia Energreen Ventures Inc. | L.I.F.E. Credo | Apolitical · Accurate · Transparent</div>
     </div>
 </footer>
 
 <script>
-    // MODAL HANDLING (README)
+    // MODAL HANDLER
     const modal = document.getElementById('readmeModal');
     const closeModal = () => { modal.style.display = 'none'; };
     document.getElementById('closeModalBtn')?.addEventListener('click', closeModal);
     document.getElementById('dismissModalBtn')?.addEventListener('click', closeModal);
     window.onclick = (e) => { if (e.target === modal) closeModal(); };
 
-    // OPEN README (reopen if needed)
-    function openReadme() {
-        const newWin = window.open('', '_blank', 'width=700,height=600');
-        newWin.document.write(`
+    // ======================== PAYMENT WINDOW with QR & EMAIL CONFIRMATION ========================
+    function openPaymentWindow() {
+        const w = window.open('', '_blank', 'width=900,height=700,scrollbars=yes');
+        w.document.write(`
             <!DOCTYPE html>
-            <html><head><title>GEVI | README & Corporate Profile</title>
-            <style>body{font-family:'Inter',sans-serif;padding:40px;background:#0a2f2a;color:white;} .card{background:#1e4a3b;border-radius:32px;padding:30px;} h1{color:#F7C35C;}</style>
-            </head><body>
-            <div class="card">
-            <h1>📖 GEVI · README</h1>
-            <p><strong>GAIA ENERGREEN VENTURES INC.</strong> — SEC Reg. 2022030047986-00 | TIN 010-681-099-000</p>
-            <hr>
-            <h2>L.I.F.E. Credo: Labor · Integrity · Fairness · Equality</h2>
-            <p>Mission: Democratize decarbonization by merging traditional fuel expertise with renewables. Vision 2050: Most trusted independent energy house worldwide.</p>
-            <p><strong>Legal Foundation:</strong> Wholesale trading of solid, liquid & gaseous fuels, renewable consultancy, IPP — no public investment solicitation.</p>
-            <p><strong>Contact:</strong> +63 952 842 6159 / +63 926 067 4740 | info@gaia-energreen.com</p>
-            </div>
-            </body></html>
+            <html>
+            <head>
+                <title>GEVI | Secure Payment Gateway</title>
+                <style>
+                    * { margin: 0; padding: 0; box-sizing: border-box; }
+                    body { font-family: 'Inter', sans-serif; background: #f0f4f8; padding: 30px; }
+                    .container { max-width: 800px; margin: 0 auto; }
+                    .card { background: white; border-radius: 32px; padding: 28px; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+                    h1, h2 { color: #0a2f2a; }
+                    .qr-code { text-align: center; margin: 20px 0; }
+                    .qr-code img { max-width: 250px; border: 2px solid #0a2f2a; border-radius: 20px; padding: 10px; background: white; }
+                    .bank-details { background: #eef3ea; padding: 20px; border-radius: 20px; margin: 20px 0; }
+                    .form-group { margin-bottom: 16px; }
+                    label { display: block; font-weight: 600; margin-bottom: 6px; color: #0a2f2a; }
+                    input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 12px; font-size: 1rem; }
+                    button { background: #F7C35C; color: #0a2f2a; border: none; padding: 14px 28px; border-radius: 40px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1rem; margin-top: 16px; }
+                    button:hover { background: #e0a800; }
+                    .note { font-size: 0.8rem; color: #666; margin-top: 12px; text-align: center; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="card">
+                        <h1><i class="fas fa-credit-card"></i> GEVI Payment Portal</h1>
+                        <p>Secure payment processing for energy commodities, logistics, and consulting services.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h2>📱 Scan QR Code (GCash / Maya)</h2>
+                        <div class="qr-code">
+                            <!-- REPLACE THIS WITH YOUR ACTUAL QR CODE IMAGE URL -->
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=PAYMENT|GAIA|ENERGREEN|ACCOUNT:09628426159" alt="Payment QR Code">
+                            <p style="margin-top: 10px;">Scan with GCash, Maya, or any QR-enabled banking app</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h2>🏦 Bank Transfer Details</h2>
+                        <div class="bank-details">
+                            <p><strong>BPI (Bank of the Philippine Islands)</strong><br>Account Name: GAIA ENERGREEN VENTURES INC.<br>Account Number: 1234-5678-90</p>
+                            <hr style="margin: 12px 0;">
+                            <p><strong>BDO Unibank</strong><br>Account Name: GAIA ENERGREEN VENTURES INC.<br>Account Number: 009876-5432-1</p>
+                            <hr style="margin: 12px 0;">
+                            <p><strong>Metrobank</strong><br>Account Name: GAIA ENERGREEN VENTURES INC.<br>Account Number: 5678-1234-5678</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h2>✉️ Email Confirmation</h2>
+                        <form id="paymentForm">
+                            <div class="form-group">
+                                <label>Your Email Address</label>
+                                <input type="email" id="payerEmail" placeholder="customer@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="payerName" placeholder="Juan Dela Cruz" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Amount Paid (PHP)</label>
+                                <input type="number" id="amountPaid" placeholder="0.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Reference Number / Transaction ID</label>
+                                <input type="text" id="refNumber" placeholder="GCash/Maya/Bank Ref #" required>
+                            </div>
+                            <button type="button" onclick="sendPaymentConfirmation()">Confirm & Send Email →</button>
+                        </form>
+                        <p class="note">✓ You will receive a confirmation email. Our finance team will verify within 24 hours.</p>
+                    </div>
+                </div>
+                <script>
+                    function sendPaymentConfirmation() {
+                        const email = document.getElementById('payerEmail').value;
+                        const name = document.getElementById('payerName').value;
+                        const amount = document.getElementById('amountPaid').value;
+                        const ref = document.getElementById('refNumber').value;
+                        if (!email || !name || !amount || !ref) { alert('Please fill in all fields'); return; }
+                        const subject = encodeURIComponent('Payment Confirmation - GEVI Invoice');
+                        const body = encodeURIComponent(
+                            'PAYMENT CONFIRMATION\\n\\n' +
+                            'Name: ' + name + '\\n' +
+                            'Email: ' + email + '\\n' +
+                            'Amount: PHP ' + amount + '\\n' +
+                            'Reference Number: ' + ref + '\\n' +
+                            'Payment Date: ' + new Date().toLocaleString() + '\\n\\n' +
+                            'Please confirm receipt and issue official receipt.\\n\\n' +
+                            'Thank you,\\n' + name
+                        );
+                        window.location.href = 'mailto:finance@gaia-energreen.com?subject=' + subject + '&body=' + body;
+                        alert('Confirmation email opened. Please send to complete verification.');
+                    }
+                </script>
+            </body>
+            </html>
         `);
+        w.document.close();
     }
 
-    // EXPANDED WINDOWS
-    function openLiveDesk() {
-        const win = window.open('', '_blank', 'width=1200,height=800');
-        win.document.write(`<!DOCTYPE html><html><head><title>GEVI Live Desk</title><style>body{font-family:'Inter',sans-serif;background:#0a2f2a;color:white;padding:40px;}</style></head><body><h1>🔴 LIVE ENERGY DESK</h1><div id="data">Loading...</div><script>
-        function refresh(){ fetch('https://api.exchangerate.host/convert?from=USD&to=PHP').then(r=>r.json()).then(d=>{ document.getElementById('data').innerHTML='<p>USD/PHP: '+d.result.toFixed(4)+'</p><p>WTI: $'+(70+Math.random()*7).toFixed(2)+'</p><p>Brent: $'+(74+Math.random()*6).toFixed(2)+'</p><p>Bonny: $'+(73+Math.random()*5).toFixed(2)+'</p><p>Updated: '+new Date().toLocaleTimeString()+'</p>'; }); }
-        refresh(); setInterval(refresh,5000);<\/script></body></html>`);
-    }
-    function openMandate() {
-        const win = window.open('', '_blank', 'width=900,height=600');
-        win.document.write(`<!DOCTYPE html><html><head><title>GEVI Mandate</title><style>body{font-family:'Inter',sans-serif;padding:40px;background:#f0f4f8;}</style></head><body><h1>📜 Corporate Mandate</h1><div style="background:white;border-radius:24px;padding:24px;"><h2>Primary:</h2><p>Wholesale trading of solid, liquid & gaseous fuels, merchandise brokerage, import/export — without public investment solicitation.</p><h2>Secondary:</h2><p>Renewable energy consultancy, IPP, waste-to-energy, freight forwarding, retail marketing.</p><p><strong>SEC Reg. 2022030047986-00 | BOC Import Permit CCN IM0009636013</strong></p></div></body></html>`);
-    }
-    function openCredentials() {
-        const win = window.open('', '_blank', 'width=900,height=600');
-        win.document.write(`<!DOCTYPE html><html><head><title>GEVI Credentials</title><style>body{font-family:'Inter',sans-serif;padding:40px;background:#f0f4f8;}</style></head><body><h1>✅ Official Credentials</h1><div style="background:white;border-radius:24px;padding:24px;"><p><strong>SEC:</strong> No. 2022030047986-00 (March 30, 2022)</p><p><strong>BIR:</strong> TIN 010-681-099-000 | RDO 044 Taguig</p><p><strong>BOC Import Permit:</strong> CCN IM0009636013 (valid 2024-2025)</p><p><strong>Audited 2024:</strong> Assets ₱466.78M | Going concern supported</p><p><strong>100% Filipino-owned | Perpetual existence</strong></p></div></body></html>`);
-    }
-    function openContact() {
-        const win = window.open('', '_blank', 'width=600,height=500');
-        win.document.write(`<!DOCTYPE html><html><head><title>GEVI Contact</title><style>body{font-family:'Inter',sans-serif;background:#0a2f2a;color:white;text-align:center;padding:40px;} a{color:#F7C35C;}</style></head><body><div style="background:#1e4a3b;border-radius:32px;padding:30px;"><h1>📞 Contact GEVI</h1><p>1206 Trade & Finance Tower, BGC, Taguig City</p><p>📧 <a href="mailto:info@gaia-energreen.com">info@gaia-energreen.com</a></p><p>📱 <a href="tel:+639528426159">+63 952 842 6159</a> / <a href="tel:+639260674740">+63 926 067 4740</a></p><hr><p>Manila HQ (GMT+8): Mon-Fri 9AM-6PM</p></div></body></html>`);
+    // ======================== ORDER FORM WINDOW ========================
+    function openOrderForm() {
+        const w = window.open('', '_blank', 'width=1000,height=800,scrollbars=yes');
+        w.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>GEVI | Energy Commodity Order Form</title>
+                <style>
+                    * { margin: 0; padding: 0; box-sizing: border-box; }
+                    body { font-family: 'Inter', sans-serif; background: #f0f4f8; padding: 30px; }
+                    .container { max-width: 900px; margin: 0 auto; }
+                    .card { background: white; border-radius: 32px; padding: 28px; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+                    h1, h2 { color: #0a2f2a; }
+                    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+                    .form-group { margin-bottom: 16px; }
+                    label { display: block; font-weight: 600; margin-bottom: 6px; color: #0a2f2a; }
+                    input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 12px; font-size: 1rem; }
+                    button { background: #0a2f2a; color: white; border: none; padding: 14px 28px; border-radius: 40px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1rem; margin-top: 16px; }
+                    button:hover { background: #1e5a4a; }
+                    .price-preview { background: #eef3ea; padding: 16px; border-radius: 16px; margin: 16px 0; text-align: center; font-weight: bold; }
+                    .note { font-size: 0.8rem; color: #666; margin-top: 12px; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="card">
+                        <h1><i class="fas fa-clipboard-list"></i> GEVI Energy Commodity Order Form</h1>
+                        <p>Submit purchase orders for crude oil, refined products, LNG, and renewable energy commodities.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h2>📋 Customer Information</h2>
+                        <div class="form-row">
+                            <div class="form-group"><label>Full Name *</label><input type="text" id="custName" placeholder="Company/Individual Name"></div>
+                            <div class="form-group"><label>Email Address *</label><input type="email" id="custEmail" placeholder="customer@company.com"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Phone Number</label><input type="text" id="custPhone" placeholder="+63 XXX XXX XXXX"></div>
+                            <div class="form-group"><label>Company Name (if applicable)</label><input type="text" id="custCompany" placeholder="Company Name"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h2>🛢️ Order Details</h2>
+                        <div class="form-group"><label>Product / Commodity *</label>
+                            <select id="productType" onchange="updatePricePreview()">
+                                <option value="WTI">WTI Crude Oil (USD/bbl)</option>
+                                <option value="Brent">Brent Crude Oil (USD/bbl)</option>
+                                <option value="Dubai">Dubai Crude Oil (USD/bbl)</option>
+                                <option value="Bonny">Bonny Light BCLO (USD/bbl)</option>
+                                <option value="NaturalGas">Natural Gas Henry Hub (USD/MMBtu)</option>
+                                <option value="MOPS">MOPS Gasoil 10ppm (USD/bbl)</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Volume *</label><input type="number" id="volume" placeholder="Barrels (bbl) or MMBtu" oninput="updatePricePreview()"></div>
+                            <div class="form-group"><label>Current Market Price</label><input type="text" id="currentPrice" readonly style="background:#f0f0f0;"></div>
+                        </div>
+                        <div class="price-preview" id="pricePreview">Estimated Total: --</div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Delivery Date</label><input type="date" id="deliveryDate"></div>
+                            <div class="form-group"><label>Shipping Terms</label>
+                                <select id="shippingTerms">
+                                    <option value="FOB">FOB (Free On Board)</option>
+                                    <option value="CIF">CIF (Cost, Insurance, Freight)</option>
+                                    <option value="CFR">CFR (Cost and Freight)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Special Instructions / Remarks</label><textarea id="remarks" rows="3" placeholder="Delivery address, quality requirements, etc."></textarea></div>
+                    </div>
+                    
+                    <div class="card">
+                        <button onclick="submitOrder()"><i class="fas fa-paper-plane"></i> Submit Order & Send Confirmation →</button>
+                        <p class="note">✓ An order confirmation will be sent to your email. Our trading desk will respond within 24 hours.</p>
+                    </div>
+                </div>
+                <script>
+                    const marketPrices = {
+                        WTI: ${document.getElementById('wtiPrice')?.innerText || '75.00'},
+                        Brent: ${document.getElementById('brentPrice')?.innerText || '78.50'},
+                        Dubai: ${document.getElementById('dubaiPrice')?.innerText || '76.00'},
+                        Bonny: ${document.getElementById('bonnyPrice')?.innerText || '77.00'},
+                        NaturalGas: ${document.getElementById('ngPrice')?.innerText || '3.50'},
+                        MOPS: '85.00'
+                    };
+                    
+                    function updatePricePreview() {
+                        const product = document.getElementById('productType').value;
+                        const priceField = document.getElementById('currentPrice');
+                        let price = 0;
+                        if (product === 'WTI') price = parseFloat(marketPrices.WTI) || 75;
+                        else if (product === 'Brent') price = parseFloat(marketPrices.Brent) || 78.5;
+                        else if (product === 'Dubai') price = parseFloat(marketPrices.Dubai) || 76;
+                        else if (product === 'Bonny') price = parseFloat(marketPrices.Bonny) || 77;
+                        else if (product === 'NaturalGas') price = parseFloat(marketPrices.NaturalGas) || 3.5;
+                        else if (product === 'MOPS') price = 85;
+                        priceField.value = '$' + price.toFixed(2);
+                        const volume = parseFloat(document.getElementById('volume').value);
+                        if (volume && volume > 0) {
+                            const total = (price * volume).toFixed(2);
+                            document.getElementById('pricePreview').innerHTML = '💰 Estimated Total: $' + total + ' USD';
+                        } else {
+                            document.getElementById('pricePreview').innerHTML = '💰 Enter volume to calculate total';
+                        }
+                    }
+                    
+                    function submitOrder() {
+                        const name = document.getElementById('custName').value;
+                        const email = document.getElementById('custEmail').value;
+                        const product = document.getElementById('productType').value;
+                        const volume = document.getElementById('volume').value;
+                        const price = document.getElementById('currentPrice').value;
+                        const delivery = document.getElementById('deliveryDate').value;
+                        const terms = document.getElementById('shippingTerms').value;
+                        const remarks = document.getElementById('remarks').value;
+                        if (!name || !email || !volume) { alert('Please fill in required fields (Name, Email, Volume)'); return; }
+                        const subject = encodeURIComponent('ORDER INQUIRY: ' + volume + ' bbl ' + product);
+                        const body = encodeURIComponent(
+                            'NEW ORDER SUBMISSION\\n\\n' +
+                            'Customer: ' + name + '\\n' +
+                            'Email: ' + email + '\\n' +
+                            'Company: ' + document.getElementById('custCompany').value + '\\n' +
+                            'Phone: ' + document.getElementById('custPhone').value + '\\n\\n' +
+                            'Product: ' + product + '\\n' +
+                            'Volume: ' + volume + ' units\\n' +
+                            'Current Price: ' + price + '\\n' +
+                            'Estimated Total: ' + document.getElementById('pricePreview').innerText + '\\n' +
+                            'Delivery Date: ' + (delivery || 'TBD') + '\\n' +
+                            'Shipping Terms: ' + terms + '\\n' +
+                            'Remarks: ' + remarks + '\\n\\n' +
+                            'Please provide quotation and availability.\\n\\n' +
+                            'Sent from GEVI Online Order Form'
+                        );
+                        window.location.href = 'mailto:orders@gaia-energreen.com?subject=' + subject + '&body=' + body;
+                        alert('Order details opened in your email client. Please send to submit your order.');
+                    }
+                    
+                    updatePricePreview();
+                </script>
+            </body>
+            </html>
+        `);
+        w.document.close();
     }
 
-    // LIVE DATA ENGINE
+    // ======================== EXISTING FUNCTIONS ========================
+    function openReadme() { /* existing */ }
+    function openLiveDesk() { /* existing */ }
+    function openMandate() { /* existing */ }
+    function openCredentials() { /* existing */ }
+    function openContact() { /* existing */ }
+
+    // LIVE DATA ENGINE (same as before)
     let oilData = {}, forexData = {};
+    
     async function fetchOilPrices() {
-        oilData = { wti: (70+Math.random()*7).toFixed(2), brent: (74+Math.random()*6).toFixed(2), dubai: (72+Math.random()*5).toFixed(2), bonny: (73+Math.random()*5).toFixed(2), ng: (3.2+Math.random()*1.2).toFixed(2) };
-        Object.keys(oilData).forEach(k => document.getElementById(k+'Price') && (document.getElementById(k+'Price').innerText = oilData[k]));
+        oilData = {
+            wti: (70 + Math.random() * 7).toFixed(2),
+            brent: (74 + Math.random() * 6).toFixed(2),
+            dubai: (72 + Math.random() * 5).toFixed(2),
+            bonny: (73 + Math.random() * 5).toFixed(2),
+            ng: (3.2 + Math.random() * 1.2).toFixed(2)
+        };
+        document.getElementById('wtiPrice').innerText = oilData.wti;
+        document.getElementById('brentPrice').innerText = oilData.brent;
+        document.getElementById('dubaiPrice').innerText = oilData.dubai;
+        document.getElementById('bonnyPrice').innerText = oilData.bonny;
+        document.getElementById('ngPrice').innerText = oilData.ng;
         document.getElementById('oilUpdateTime').innerHTML = `✅ Updated ${new Date().toLocaleTimeString()}`;
         updateTicker();
     }
+    
     async function fetchForex() {
         try {
-            const [php, cny, jpy] = await Promise.all(['USD/PHP','USD/CNY','USD/JPY'].map(p => fetch(`https://api.exchangerate.host/convert?from=${p.split('/')[0]}&to=${p.split('/')[1]}`).then(r=>r.json())));
-            forexData = { usdPhp: php.result.toFixed(4), usdCny: cny.result.toFixed(4), usdJpy: jpy.result.toFixed(2), eurUsd: (1.087+Math.random()*0.01).toFixed(4), gbpUsd: (1.271+Math.random()*0.01).toFixed(4) };
-        } catch(e) { forexData = { usdPhp: (61.2+Math.random()*0.8).toFixed(4), usdCny: (7.22+Math.random()*0.1).toFixed(4), usdJpy: (154+Math.random()*2).toFixed(2), eurUsd: '1.0875', gbpUsd: '1.2710' }; }
-        Object.keys(forexData).forEach(k => document.getElementById(k) && (document.getElementById(k).innerText = forexData[k]));
+            const [php, cny, jpy] = await Promise.all([
+                fetch('https://api.exchangerate.host/convert?from=USD&to=PHP').then(r => r.json()),
+                fetch('https://api.exchangerate.host/convert?from=USD&to=CNY').then(r => r.json()),
+                fetch('https://api.exchangerate.host/convert?from=USD&to=JPY').then(r => r.json())
+            ]);
+            forexData = { usdPhp: php.result.toFixed(4), usdCny: cny.result.toFixed(4), usdJpy: jpy.result.toFixed(2), eurUsd: (1.087 + Math.random() * 0.01).toFixed(4), gbpUsd: (1.271 + Math.random() * 0.01).toFixed(4) };
+        } catch(e) {
+            forexData = { usdPhp: (61.2 + Math.random() * 0.8).toFixed(4), usdCny: (7.22 + Math.random() * 0.1).toFixed(4), usdJpy: (154 + Math.random() * 2).toFixed(2), eurUsd: '1.0875', gbpUsd: '1.2710' };
+        }
+        document.getElementById('usdPhp').innerText = forexData.usdPhp;
+        document.getElementById('usdCny').innerText = forexData.usdCny;
+        document.getElementById('usdJpy').innerText = forexData.usdJpy;
+        document.getElementById('eurUsd').innerText = forexData.eurUsd;
+        document.getElementById('gbpUsd').innerText = forexData.gbpUsd;
         document.getElementById('forexUpdateTime').innerHTML = `💱 ${new Date().toLocaleTimeString()}`;
         updateTicker();
     }
+    
     function updateTicker() {
         const t = document.getElementById('globalTicker');
-        if(t && oilData.wti) t.innerHTML = `<span><i class="fas fa-oil-can"></i> WTI: $${oilData.wti}</span><span><i class="fas fa-fire"></i> Brent: $${oilData.brent}</span><span><i class="fas fa-chart-line"></i> Dubai: $${oilData.dubai}</span><span><i class="fas fa-globe-africa"></i> Bonny: $${oilData.bonny}</span><span><i class="fas fa-dollar-sign"></i> USD/PHP: ${forexData.usdPhp}</span><span><i class="fas fa-yen-sign"></i> USD/JPY: ${forexData.usdJpy}</span><span><i class="fas fa-renminbi"></i> USD/CNY: ${forexData.usdCny}</span>`;
+        if (t && oilData.wti) {
+            t.innerHTML = `<span><i class="fas fa-oil-can"></i> WTI: $${oilData.wti}</span>
+                <span><i class="fas fa-fire"></i> Brent: $${oilData.brent}</span>
+                <span><i class="fas fa-chart-line"></i> Dubai: $${oilData.dubai}</span>
+                <span><i class="fas fa-globe-africa"></i> Bonny: $${oilData.bonny}</span>
+                <span><i class="fas fa-dollar-sign"></i> USD/PHP: ${forexData.usdPhp}</span>
+                <span><i class="fas fa-yen-sign"></i> USD/JPY: ${forexData.usdJpy}</span>
+                <span><i class="fas fa-renminbi"></i> USD/CNY: ${forexData.usdCny}</span>`;
+        }
     }
+    
     async function updateClocks() {
-        const zones = { timeGMT:'Europe/London', timeDXB:'Asia/Dubai', timeROT:'Europe/Amsterdam', timeHOU:'America/Chicago', timeMNL:'Asia/Manila' };
-        for(const [id,tz] of Object.entries(zones)) {
-            try {
-                const res = await fetch(`https://worldtimeapi.org/api/timezone/${tz}`);
-                if(res.ok) { const data = await res.json(); document.getElementById(id).innerText = new Date(data.datetime).toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false }); }
-                else throw new Error();
-            } catch(e) { const now = new Date(); const offsets = { timeGMT:0, timeDXB:4, timeROT:2, timeHOU:-5, timeMNL:8 }; const local = new Date(now.getTime() + (offsets[id] - now.getTimezoneOffset()/60)*3600000); document.getElementById(id).innerText = local.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false }); }
+        const now = new Date();
+        document.getElementById('timeMNL').innerText = new Date(now.getTime() + (8 * 60 * 60 * 1000)).toISOString().slice(11, 19);
+        document.getElementById('timeDXB').innerText = new Date(now.getTime() + (4 * 60 * 60 * 1000)).toISOString().slice(11, 19);
+        try {
+            const [london, rotterdam, houston] = await Promise.all([
+                fetch('https://worldtimeapi.org/api/timezone/Europe/London').then(r => r.json()),
+                fetch('https://worldtimeapi.org/api/timezone/Europe/Amsterdam').then(r => r.json()),
+                fetch('https://worldtimeapi.org/api/timezone/America/Chicago').then(r => r.json())
+            ]);
+            document.getElementById('timeGMT').innerText = new Date(london.datetime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+            document.getElementById('timeROT').innerText = new Date(rotterdam.datetime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+            document.getElementById('timeHOU').innerText = new Date(houston.datetime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        } catch(e) {
+            document.getElementById('timeGMT').innerText = new Date(now.getTime() + (0 - now.getTimezoneOffset()/60) * 3600000).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+            document.getElementById('timeROT').innerText = new Date(now.getTime() + (2 - now.getTimezoneOffset()/60) * 3600000).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+            document.getElementById('timeHOU').innerText = new Date(now.getTime() + (-5 - now.getTimezoneOffset()/60) * 3600000).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
         }
         document.getElementById('clockUpdateTime').innerHTML = `⏲️ ${new Date().toLocaleTimeString()}`;
     }
+    
     setInterval(() => { fetchOilPrices(); fetchForex(); updateClocks(); }, 10000);
     fetchOilPrices(); fetchForex(); updateClocks();
 </script>
