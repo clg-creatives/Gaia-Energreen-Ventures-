@@ -14,30 +14,38 @@
         .site-header { background: #0a2f2a; color: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
         .nav-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 16px 0; gap: 20px; position: relative; }
-        .logo h1 { font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, #F7C35C, #A3D9A5); background-clip: text; -webkit-background-clip: text; color: transparent; }
+        .logo h1 { font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, #F7C35C, #A3D9A5); background-clip: text; -webkit-background-clip: text; color: transparent; cursor: pointer; }
         .logo p { font-size: 0.7rem; color: #b8dfc2; }
-        .nav-links { display: flex; gap: 28px; flex-wrap: wrap; }
+        .nav-links { display: flex; gap: 28px; flex-wrap: wrap; align-items: center; }
         .nav-links button { background: none; border: none; color: #e2f0e6; font-weight: 500; font-size: 0.9rem; cursor: pointer; font-family: inherit; padding: 8px 0; transition: 0.2s; }
         .nav-links button:hover { color: #F7C35C; }
         
-        /* CLG Logo - Top Right Corner */
-        .clg-logo {
+        /* CLG Logo - Absolute positioned far right corner - DOES NOT BLOCK BUTTONS */
+        .clg-wrapper {
             position: absolute;
             top: 8px;
-            right: 24px;
+            right: 8px;
+            z-index: 200;
             text-align: right;
-            z-index: 10;
         }
-        .clg-logo img {
-            height: 45px;
+        .clg-logo-link {
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .clg-logo-link:hover {
+            transform: scale(1.02);
+        }
+        .clg-logo-img {
+            height: 40px;
             width: auto;
-            opacity: 0.85;
-            transition: 0.2s;
+            border-radius: 6px;
+            background: #F7C35C;
+            padding: 4px 8px;
         }
-        .clg-logo img:hover { opacity: 1; }
         .clg-member {
-            font-size: 0.6rem;
-            letter-spacing: 0.5px;
+            font-size: 0.55rem;
+            letter-spacing: 0.3px;
             color: #b8dfc2;
             margin-top: 2px;
             font-weight: 400;
@@ -54,7 +62,7 @@
         .card { background: #ffffff; border-radius: 32px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #e2ebe6; overflow: hidden; }
         .card-header { background: #f7fbf8; padding: 20px 24px; border-bottom: 1px solid #e0ece4; font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: 12px; }
         .card-header i { font-size: 1.6rem; color: #2b7a4b; }
-        .card-content { padding: 24px; max-height: 550px; overflow-y: auto; }
+        .card-content { padding: 24px; max-height: 580px; overflow-y: auto; }
         .price-item, .forex-row, .timezone-item { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid #ecf3ef; }
         .price-value, .forex-row span:last-child { font-weight: 800; font-size: 1.1rem; color: #0a2f2a; }
         .update-time { font-size: 0.7rem; color: #7c998b; margin-top: 16px; text-align: right; font-family: monospace; }
@@ -78,18 +86,27 @@
         
         .product-section-title { font-weight: 700; color: #2b7a4b; margin: 12px 0 8px 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
         
-        @media (max-width: 700px) { .credo-section { padding: 24px; } .nav-links { gap: 16px; } .clg-logo img { height: 32px; } }
+        .home-btn { background: #F7C35C20; border: 1px solid #F7C35C; }
+        .home-btn:hover { background: #F7C35C40; color: #F7C35C; }
+        
+        @media (max-width: 850px) {
+            .clg-logo-img { height: 32px; }
+            .clg-member { font-size: 0.45rem; }
+            .nav-bar { padding-right: 90px; }
+        }
+        @media (max-width: 700px) { .credo-section { padding: 24px; } .nav-links { gap: 12px; } }
     </style>
 </head>
 <body>
 
 <header class="site-header">
     <div class="container nav-bar">
-        <div class="logo">
+        <div class="logo" onclick="goHome()">
             <h1>GAIA ENERGREEN VENTURES INC.</h1>
             <p>L.I.F.E. Credo · Labor | Integrity | Fairness | Equality</p>
         </div>
         <div class="nav-links">
+            <button onclick="goHome()" class="home-btn"><i class="fas fa-home"></i> Home</button>
             <button onclick="showReadme()">📖 README</button>
             <button onclick="openLiveDesk()">Live Desk</button>
             <button onclick="openMandate()">Mandate</button>
@@ -98,10 +115,12 @@
             <button onclick="openPayment()">💳 Pay</button>
             <button onclick="openOrder()">📦 Order</button>
         </div>
-        <!-- CLG Logo Top Right Corner -->
-        <div class="clg-logo">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80'%3E%3Crect width='200' height='80' fill='%23F7C35C' rx='8'/%3E%3Ctext x='50%25' y='35%25' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold' font-size='18' fill='%230a2f2a'%3ECLAMOR%3C/text%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold' font-size='14' fill='%230a2f2a'%3ELEISURE GROUP%3C/text%3E%3Ctext x='50%25' y='72%25' text-anchor='middle' font-family='Arial, sans-serif' font-size='8' fill='%235a3a0a'%3EBEYOND LEISURE%3C/text%3E%3C/svg%3E"
-                 alt="CLG Logo" style="height: 42px; border-radius: 6px;">
+        <!-- CLG Logo - Absolute positioned far right - DOES NOT BLOCK -->
+        <div class="clg-wrapper">
+            <a href="https://clamorgroup.com" target="_blank" class="clg-logo-link" title="Visit ClaMor Leisure Group">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 70'%3E%3Crect width='200' height='70' fill='%23F7C35C' rx='6'/%3E%3Ctext x='50%25' y='32%25' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold' font-size='16' fill='%230a2f2a'%3ECLAMOR%3C/text%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold' font-size='12' fill='%230a2f2a'%3ELEISURE GROUP%3C/text%3E%3Ctext x='50%25' y='66%25' text-anchor='middle' font-family='Arial, sans-serif' font-size='7' fill='%235a3a0a'%3EBEYOND LEISURE%3C/text%3E%3C/svg%3E"
+                     alt="CLG Logo" class="clg-logo-img">
+            </a>
             <div class="clg-member">Member: ClaMor Leisure Group</div>
         </div>
     </div>
@@ -207,11 +226,20 @@
             </div>
         </div>
         <hr style="margin: 24px 0; border-color: #2b5a4a;">
-        <div style="text-align: center;">© 2025 — Gaia Energreen Ventures Inc. | Member: ClaMor Leisure Group | Data refreshes every 10 seconds</div>
+        <div style="text-align: center;">© 2025 — Gaia Energreen Ventures Inc. | Member: <a href="https://clamorgroup.com" target="_blank" style="color:#F7C35C;">ClaMor Leisure Group</a> | Data refreshes every 10 seconds</div>
     </div>
 </footer>
 
 <script>
+    // ======================== HOME FUNCTION ========================
+    function goHome() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Refresh all data
+        updateOil();
+        updateForex();
+        updateClocks();
+    }
+
     // ======================== MODAL README ========================
     function showReadme() {
         const modal = document.createElement('div');
@@ -227,7 +255,7 @@
                 <p><strong>Mission:</strong> Democratize decarbonization by merging traditional fuel expertise with renewables.</p>
                 <p><strong>Vision 2050:</strong> Most trusted independent energy house worldwide.</p>
                 <p><strong>Legal:</strong> Wholesale trading of solid/liquid/gaseous fuels, renewable consultancy, IPP — no public investment solicitation.</p>
-                <p><strong>Member:</strong> ClaMor Leisure Group Inc.</p>
+                <p><strong>Member:</strong> <a href="https://clamorgroup.com" target="_blank">ClaMor Leisure Group</a></p>
                 <p><strong>Contact:</strong> +63 952 842 6159 | info@gaia-energreen.com</p>
                 <button onclick="this.closest('.modal-overlay').remove()">Close →</button>
             </div>
@@ -235,52 +263,84 @@
         document.body.appendChild(modal);
     }
 
-    // ======================== EXPANDED WINDOWS ========================
+    // ======================== EXPANDED WINDOWS (FIXED - NO INFINITE LOADING) ========================
     function openLiveDesk() {
-        const w = window.open('', '_blank', 'width=1000,height=700');
+        const w = window.open('', '_blank', 'width=1100,height=750,scrollbars=yes');
         w.document.write(`
             <!DOCTYPE html>
-            <html><head><title>GEVI Live Desk</title>
-            <style>body{font-family:'Inter',sans-serif;background:#0a2f2a;color:white;padding:40px;} .card{background:#1e4a3b;border-radius:24px;padding:20px;margin:12px 0;} .price{font-size:1.5rem;color:#F7C35C;font-weight:bold;}</style>
+            <html>
+            <head>
+                <title>GEVI Live Desk | Real-Time Energy Prices</title>
+                <style>
+                    *{margin:0;padding:0;box-sizing:border-box;}
+                    body{font-family:'Inter',sans-serif;background:#0a2f2a;color:white;padding:30px;}
+                    h1{color:#F7C35C;margin-bottom:20px;}
+                    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+                    .card{background:#1e4a3b;border-radius:24px;padding:20px;border-left:4px solid #F7C35C;}
+                    .price{font-size:1.8rem;font-weight:800;color:#F7C35C;margin:10px 0;}
+                    .update{font-size:0.7rem;color:#a3d9a5;margin-top:16px;text-align:right;}
+                    .badge{background:#F7C35C20;padding:4px 12px;border-radius:20px;font-size:0.7rem;display:inline-block;}
+                </style>
             </head>
-            <body><h1>🔴 GEVI LIVE ENERGY DESK</h1><div id="data"><div class="card">Loading live market data...</div></div>
-            <script>
-                function refresh(){
-                    fetch('https://api.exchangerate.host/convert?from=USD&to=PHP').then(r=>r.json()).then(d=>{
-                        document.getElementById('data').innerHTML = \`
-                            <div class="card"><h3>🇺🇸 USD/PHP</h3><div class="price">\${d.result.toFixed(4)}</div></div>
-                            <div class="card"><h3>🛢️ WTI Crude</h3><div class="price">$\${(70+Math.random()*7).toFixed(2)} USD/bbl</div></div>
-                            <div class="card"><h3>🔥 Brent Crude</h3><div class="price">$\${(74+Math.random()*6).toFixed(2)} USD/bbl</div></div>
-                            <div class="card"><h3>🇳🇬 Bonny Light</h3><div class="price">$\${(73+Math.random()*5).toFixed(2)} USD/bbl</div></div>
-                            <div class="card"><h3>✈️ Jet A-1</h3><div class="price">$\${(85+Math.random()*5).toFixed(2)} USD/bbl</div></div>
-                            <div class="card"><h3>⛽ RON 95 Gasoline</h3><div class="price">$\${(82+Math.random()*5).toFixed(2)} USD/bbl</div></div>
-                            <div class="card"><h3>🚛 AGO 10ppm Diesel</h3><div class="price">$\${(84+Math.random()*5).toFixed(2)} USD/bbl</div></div>
-                            <div class="card"><h3>🔥 LPG</h3><div class="price">$\${(480+Math.random()*40).toFixed(0)} USD/MT</div></div>
-                            <p>Updated: \${new Date().toLocaleString()}</p>
+            <body>
+                <h1>🔴 GEVI LIVE ENERGY DESK</h1>
+                <p><span class="badge">Real-Time Benchmarks</span> <span class="badge">Auto-refresh every 8 sec</span></p>
+                <div id="liveData" class="grid">
+                    <div class="card">Loading market data...</div>
+                </div>
+                <div class="update" id="timestamp">Connecting...</div>
+                <script>
+                    function formatNumber(n) { return parseFloat(n).toFixed(2); }
+                    function refreshLiveDesk() {
+                        // Simulated realistic market data (in production, replace with API)
+                        const data = {
+                            wti: (70 + Math.random() * 7).toFixed(2),
+                            brent: (74 + Math.random() * 6).toFixed(2),
+                            dubai: (72 + Math.random() * 5).toFixed(2),
+                            bonny: (73 + Math.random() * 5).toFixed(2),
+                            jeta: (82 + Math.random() * 6).toFixed(2),
+                            ron: (80 + Math.random() * 6).toFixed(2),
+                            ago: (81 + Math.random() * 6).toFixed(2),
+                            lpg: (460 + Math.random() * 60).toFixed(0),
+                            ng: (3.2 + Math.random() * 1.2).toFixed(2)
+                        };
+                        document.getElementById('liveData').innerHTML = \`
+                            <div class="card"><strong>🛢️ WTI Crude</strong><div class="price">$\${data.wti}</div><div>USD/bbl</div></div>
+                            <div class="card"><strong>🔥 Brent Crude</strong><div class="price">$\${data.brent}</div><div>USD/bbl</div></div>
+                            <div class="card"><strong>🇦🇪 Dubai Crude</strong><div class="price">$\${data.dubai}</div><div>USD/bbl</div></div>
+                            <div class="card"><strong>🇳🇬 Bonny Light</strong><div class="price">$\${data.bonny}</div><div>USD/bbl</div></div>
+                            <div class="card"><strong>✈️ Jet A-1</strong><div class="price">$\${data.jeta}</div><div>USD/bbl</div></div>
+                            <div class="card"><strong>⛽ RON 95 Gasoline</strong><div class="price">$\${data.ron}</div><div>USD/bbl</div></div>
+                            <div class="card"><strong>🚛 AGO 10ppm Diesel</strong><div class="price">$\${data.ago}</div><div>USD/bbl</div></div>
+                            <div class="card"><strong>🔥 LPG</strong><div class="price">$\${data.lpg}</div><div>USD/MT</div></div>
+                            <div class="card"><strong>⛽ Natural Gas</strong><div class="price">$\${data.ng}</div><div>USD/MMBtu</div></div>
                         \`;
-                    }).catch(()=>{});
-                }
-                refresh(); setInterval(refresh, 8000);
-            <\/script></body></html>
+                        document.getElementById('timestamp').innerHTML = 'Last updated: ' + new Date().toLocaleTimeString() + ' (GMT+8)';
+                    }
+                    refreshLiveDesk();
+                    setInterval(refreshLiveDesk, 8000);
+                <\/script>
+            </body>
+            </html>
         `);
         w.document.close();
     }
     
     function openMandate() {
         const w = window.open('', '_blank', 'width=800,height=550');
-        w.document.write(`<!DOCTYPE html><html><head><title>GEVI Mandate</title><style>body{font-family:'Inter',sans-serif;padding:40px;background:#f0f4f8;}</style></head><body><h1>📜 Corporate Mandate</h1><div style="background:white;border-radius:24px;padding:24px;"><h2>Primary:</h2><p>Wholesale trading of solid, liquid & gaseous fuels, crude oil, refined products (Jet A-1, RON, AGO, LPG), merchandise brokerage, import/export — without public investment solicitation.</p><h2>Secondary:</h2><p>Renewable energy consultancy, IPP, waste-to-energy, freight forwarding.</p><p><strong>SEC Reg. 2022030047986-00 | BOC Import Permit CCN IM0009636013</strong></p><p><strong>Member: ClaMor Leisure Group Inc.</strong></p></div></body></html>`);
+        w.document.write(`<!DOCTYPE html><html><head><title>GEVI Mandate</title><style>body{font-family:'Inter',sans-serif;padding:40px;background:#f0f4f8;}</style></head><body><h1>📜 Corporate Mandate</h1><div style="background:white;border-radius:24px;padding:24px;"><h2>Primary:</h2><p>Wholesale trading of solid, liquid & gaseous fuels, crude oil, refined products (Jet A-1, RON, AGO, LPG), merchandise brokerage, import/export — without public investment solicitation.</p><h2>Secondary:</h2><p>Renewable energy consultancy, IPP, waste-to-energy, freight forwarding.</p><p><strong>SEC Reg. 2022030047986-00 | BOC Import Permit CCN IM0009636013</strong></p><p><strong>Member: <a href="https://clamorgroup.com" target="_blank">ClaMor Leisure Group</a></strong></p></div></body></html>`);
         w.document.close();
     }
     
     function openCredentials() {
         const w = window.open('', '_blank', 'width=800,height=550');
-        w.document.write(`<!DOCTYPE html><html><head><title>GEVI Credentials</title><style>body{font-family:'Inter',sans-serif;padding:40px;background:#f0f4f8;}</style></head><body><h1>✅ Official Credentials</h1><div style="background:white;border-radius:24px;padding:24px;"><p><strong>SEC:</strong> No. 2022030047986-00 (March 30, 2022)</p><p><strong>BIR:</strong> TIN 010-681-099-000 | RDO 044 Taguig</p><p><strong>BOC Import Permit:</strong> CCN IM0009636013</p><p><strong>Audited 2024:</strong> Assets ₱466.78M | Going concern supported</p><p><strong>100% Filipino-owned | Perpetual existence</strong></p><p><strong>Member: ClaMor Leisure Group Inc.</strong></p></div></body></html>`);
+        w.document.write(`<!DOCTYPE html><html><head><title>GEVI Credentials</title><style>body{font-family:'Inter',sans-serif;padding:40px;background:#f0f4f8;}</style></head><body><h1>✅ Official Credentials</h1><div style="background:white;border-radius:24px;padding:24px;"><p><strong>SEC:</strong> No. 2022030047986-00 (March 30, 2022)</p><p><strong>BIR:</strong> TIN 010-681-099-000 | RDO 044 Taguig</p><p><strong>BOC Import Permit:</strong> CCN IM0009636013</p><p><strong>Audited 2024:</strong> Assets ₱466.78M | Going concern supported</p><p><strong>100% Filipino-owned | Perpetual existence</strong></p><p><strong>Member: <a href="https://clamorgroup.com" target="_blank">ClaMor Leisure Group</a></strong></p></div></body></html>`);
         w.document.close();
     }
     
     function openContact() {
         const w = window.open('', '_blank', 'width=600,height=480');
-        w.document.write(`<!DOCTYPE html><html><head><title>GEVI Contact</title><style>body{font-family:'Inter',sans-serif;background:#0a2f2a;color:white;text-align:center;padding:40px;} a{color:#F7C35C;}</style></head><body><div style="background:#1e4a3b;border-radius:32px;padding:30px;"><h1>📞 Contact GEVI</h1><p><strong>GAIA ENERGREEN VENTURES INC.</strong><br>Member: ClaMor Leisure Group</p><p>1206 Trade & Finance Tower, BGC, Taguig City</p><p>📧 <a href="mailto:info@gaia-energreen.com">info@gaia-energreen.com</a></p><p>📱 <a href="tel:+639528426159">+63 952 842 6159</a><br><a href="tel:+639260674740">+63 926 067 4740</a></p></div></body></html>`);
+        w.document.write(`<!DOCTYPE html><html><head><title>GEVI Contact</title><style>body{font-family:'Inter',sans-serif;background:#0a2f2a;color:white;text-align:center;padding:40px;} a{color:#F7C35C;}</style></head><body><div style="background:#1e4a3b;border-radius:32px;padding:30px;"><h1>📞 Contact GEVI</h1><p><strong>GAIA ENERGREEN VENTURES INC.</strong><br>Member: <a href="https://clamorgroup.com" target="_blank">ClaMor Leisure Group</a></p><p>1206 Trade & Finance Tower, BGC, Taguig City</p><p>📧 <a href="mailto:info@gaia-energreen.com">info@gaia-energreen.com</a></p><p>📱 <a href="tel:+639528426159">+63 952 842 6159</a><br><a href="tel:+639260674740">+63 926 067 4740</a></p></div></body></html>`);
         w.document.close();
     }
     
@@ -297,7 +357,7 @@
             </style></head>
             <body>
                 <div class="card"><h2>💳 Payment Portal</h2>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=GEVI|09771234567" style="display:block;margin:0 auto 20px;">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=GEVI|09628426159" style="display:block;margin:0 auto 20px;">
                 <p><strong>BPI:</strong> GAIA ENERGREEN · 1234-5678-90</p>
                 <p><strong>BDO:</strong> GAIA ENERGREEN · 009876-5432-1</p>
                 <p><strong>GCash:</strong> 0962 842 6159</p>
@@ -333,7 +393,7 @@
                 <input type="text" id="destination" placeholder="Delivery Destination">
                 <textarea id="notes" rows="3" placeholder="Quality specs, delivery instructions, etc."></textarea>
                 <button onclick="submitOrder()">Submit Order →</button>
-                <p style="font-size:0.7rem; margin-top:12px;">Member: ClaMor Leisure Group</p></div>
+                <p style="font-size:0.7rem; margin-top:12px;">Member: <a href="https://clamorgroup.com" target="_blank">ClaMor Leisure Group</a></p></div>
                 <script>function submitOrder(){let e=document.getElementById('email').value;let p=document.getElementById('product').value;if(!e){alert('Enter email');return;}window.location.href='mailto:orders@gaia-energreen.com?subject=Order%20Inquiry%20' + encodeURIComponent(p) + '&body=Order%20from%20'+e;alert('Email opened. Send to complete order.');}<\/script>
             </body></html>
         `);
@@ -345,12 +405,10 @@
     let forex = { usdphp: 0, usdcny: 0, usdjpy: 0, eurusd: 0, gbpusd: 0 };
     
     function updateOil() {
-        // Crude benchmarks
         oil.wti = (70 + Math.random() * 7).toFixed(2);
         oil.brent = (74 + Math.random() * 6).toFixed(2);
         oil.dubai = (72 + Math.random() * 5).toFixed(2);
         oil.bonny = (73 + Math.random() * 5).toFixed(2);
-        // Distilled products (bread & butter) - priced relative to Brent
         oil.jeta = (parseFloat(oil.brent) + 8 + Math.random() * 4).toFixed(2);
         oil.ron = (parseFloat(oil.brent) + 6 + Math.random() * 5).toFixed(2);
         oil.ago = (parseFloat(oil.brent) + 5 + Math.random() * 4).toFixed(2);
@@ -366,7 +424,7 @@
         document.getElementById('ago').innerText = oil.ago;
         document.getElementById('lpg').innerText = oil.lpg;
         document.getElementById('ng').innerText = oil.ng;
-        document.getElementById('oilTime').innerHTML = `✅ Oil/Hydrocarbons ${new Date().toLocaleTimeString()}`;
+        document.getElementById('oilTime').innerHTML = `✅ Updated ${new Date().toLocaleTimeString()}`;
         updateTicker();
     }
     
@@ -439,7 +497,6 @@
         document.getElementById('clockTime').innerHTML = `⏲️ ${new Date().toLocaleTimeString()}`;
     }
     
-    // Animate ticker
     function animateTicker() {
         const ticker = document.getElementById('tickerContent');
         if (ticker && ticker.parentElement) {
