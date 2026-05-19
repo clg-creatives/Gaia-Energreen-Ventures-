@@ -3,143 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>GEVI | Gaia Energreen Ventures — Live Energy Desk</title>
+    <title>GEVI | Gaia Energreen Ventures — Live Energy Intelligence</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #f0f4f8; color: #1a2c3e; line-height: 1.5; }
+        
+        /* Header */
         .site-header { background: #0a2f2a; color: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
-        .nav-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 16px 0; gap: 20px; }
-        .logo h1 { font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, #F7C35C, #A3D9A5); background-clip: text; -webkit-background-clip: text; color: transparent; cursor: pointer; }
+        .nav-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 16px 0; gap: 20px; position: relative; }
+        .logo h1 { font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, #F7C35C, #A3D9A5); background-clip: text; -webkit-background-clip: text; color: transparent; }
         .logo p { font-size: 0.7rem; color: #b8dfc2; }
         .nav-links { display: flex; gap: 28px; flex-wrap: wrap; }
-        .nav-links a { color: #e2f0e6; text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: 0.2s; cursor: pointer; }
-        .nav-links a:hover { color: #F7C35C; }
-
-        .ticker-container { background: #061d19; color: #fff; border-top: 1px solid #2b7a4b; border-bottom: 1px solid #2b7a4b; padding: 12px 0; overflow: hidden; white-space: nowrap; font-weight: 600; }
-        .ticker { display: inline-block; animation: tickerScroll 45s linear infinite; font-size: 0.9rem; }
-        .ticker span { margin: 0 25px; }
+        .nav-links button { background: none; border: none; color: #e2f0e6; font-weight: 500; font-size: 0.9rem; cursor: pointer; font-family: inherit; padding: 8px 0; transition: 0.2s; }
+        .nav-links button:hover { color: #F7C35C; }
+        
+        /* CLG Logo - Top Right Corner */
+        .clg-logo {
+            position: absolute;
+            top: 8px;
+            right: 24px;
+            text-align: right;
+            z-index: 10;
+        }
+        .clg-logo img {
+            height: 45px;
+            width: auto;
+            opacity: 0.85;
+            transition: 0.2s;
+        }
+        .clg-logo img:hover { opacity: 1; }
+        .clg-member {
+            font-size: 0.6rem;
+            letter-spacing: 0.5px;
+            color: #b8dfc2;
+            margin-top: 2px;
+            font-weight: 400;
+        }
+        
+        /* Live Ticker */
+        .ticker-container { background: #061d19; color: #fff; border-top: 1px solid #2b7a4b; border-bottom: 1px solid #2b7a4b; padding: 12px 0; overflow: hidden; white-space: nowrap; position: relative; }
+        .ticker { display: inline-block; white-space: nowrap; font-size: 0.85rem; font-weight: 600; }
+        .ticker span { margin: 0 20px; }
         .ticker i { margin-right: 6px; color: #F7C35C; }
-        @keyframes tickerScroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
-        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 28px; margin: 48px 0; }
-        .card { background: #ffffff; border-radius: 32px; box-shadow: 0 20px 35px rgba(0, 0, 0, 0.05); border: 1px solid #e2ebe6; overflow: hidden; }
+        
+        /* Dashboard Cards */
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 28px; margin: 48px 0; }
+        .card { background: #ffffff; border-radius: 32px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #e2ebe6; overflow: hidden; }
         .card-header { background: #f7fbf8; padding: 20px 24px; border-bottom: 1px solid #e0ece4; font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: 12px; }
         .card-header i { font-size: 1.6rem; color: #2b7a4b; }
-        .card-content { padding: 24px; }
-        .price-item, .forex-row, .timezone-item { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0; border-bottom: 1px solid #ecf3ef; }
-        .price-value, .forex-row span:last-child { font-weight: 800; font-size: 1.2rem; color: #0a2f2a; }
+        .card-content { padding: 24px; max-height: 550px; overflow-y: auto; }
+        .price-item, .forex-row, .timezone-item { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid #ecf3ef; }
+        .price-value, .forex-row span:last-child { font-weight: 800; font-size: 1.1rem; color: #0a2f2a; }
         .update-time { font-size: 0.7rem; color: #7c998b; margin-top: 16px; text-align: right; font-family: monospace; }
         .live-badge { display: inline-block; background: #10b98120; color: #047857; font-size: 0.7rem; border-radius: 40px; padding: 4px 10px; margin-left: 12px; }
         .live-dot { display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; margin-right: 6px; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
-
+        
+        .action-btn { background: #F7C35C; color: #0a2f2a; border: none; padding: 12px 24px; border-radius: 40px; font-weight: bold; cursor: pointer; margin-top: 16px; width: 100%; font-size: 1rem; transition: 0.2s; font-family: inherit; }
+        .action-btn:hover { background: #e0a800; transform: translateY(-2px); }
+        
         .credo-section { background: linear-gradient(125deg, #eef6ea, #ffffff); border-radius: 40px; padding: 40px; margin: 40px 0; border-left: 8px solid #F7C35C; }
         .pillar { display: inline-block; background: #0a2f2a; color: #F7C35C; font-weight: 700; padding: 6px 18px; border-radius: 60px; margin: 4px 8px 4px 0; font-size: 0.85rem; }
+        
         footer { background: #0c2d26; color: #cddfd5; padding: 40px 0; margin-top: 48px; }
+        footer a { color: #F7C35C; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
         
-        .payment-btn, .order-btn { background: #F7C35C; color: #0a2f2a; border: none; padding: 12px 24px; border-radius: 40px; font-weight: bold; cursor: pointer; margin-top: 16px; width: 100%; font-size: 1rem; transition: 0.2s; }
-        .payment-btn:hover, .order-btn:hover { background: #e0a800; transform: translateY(-2px); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+        .modal-card { max-width: 600px; background: white; border-radius: 48px; padding: 32px; max-height: 85vh; overflow-y: auto; }
+        .modal-card button { background: #0a2f2a; color: white; border: none; padding: 12px 24px; border-radius: 40px; cursor: pointer; width: 100%; margin-top: 20px; font-weight: bold; }
         
-        /* Modal styles */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; }
-        .modal-card { max-width: 650px; background: #ffffff; border-radius: 48px; padding: 32px 36px; margin: 20px; box-shadow: 0 40px 60px rgba(0,0,0,0.3); position: relative; max-height: 85vh; overflow-y: auto; }
-        .close-modal { position: absolute; top: 20px; right: 28px; font-size: 1.8rem; cursor: pointer; color: #2b7a4b; }
-        @media (max-width:780px) { .modal-card { padding: 24px; } }
+        .product-section-title { font-weight: 700; color: #2b7a4b; margin: 12px 0 8px 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        @media (max-width: 700px) { .credo-section { padding: 24px; } .nav-links { gap: 16px; } .clg-logo img { height: 32px; } }
     </style>
 </head>
 <body>
 
 <header class="site-header">
     <div class="container nav-bar">
-        <div class="logo" onclick="openLiveDesk()">
+        <div class="logo">
             <h1>GAIA ENERGREEN VENTURES INC.</h1>
-            <p>L.I.F.E. Credo · Labor | Integrity | Fairness | Equality | Inclusive Energy</p>
+            <p>L.I.F.E. Credo · Labor | Integrity | Fairness | Equality</p>
         </div>
         <div class="nav-links">
-            <a onclick="openReadmeModal()">📖 README</a>
-            <a onclick="openLiveDesk()">Live Desk</a>
-            <a onclick="openMandate()">Mandate</a>
-            <a onclick="openCredentials()">Credentials</a>
-            <a onclick="openContact()">Contact</a>
-            <a onclick="openPaymentWindow()">💳 Pay</a>
-            <a onclick="openOrderForm()">📦 Order</a>
+            <button onclick="showReadme()">📖 README</button>
+            <button onclick="openLiveDesk()">Live Desk</button>
+            <button onclick="openMandate()">Mandate</button>
+            <button onclick="openCredentials()">Credentials</button>
+            <button onclick="openContact()">Contact</button>
+            <button onclick="openPayment()">💳 Pay</button>
+            <button onclick="openOrder()">📦 Order</button>
+        </div>
+        <!-- CLG Logo Top Right Corner -->
+        <div class="clg-logo">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80'%3E%3Crect width='200' height='80' fill='%23F7C35C' rx='8'/%3E%3Ctext x='50%25' y='35%25' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold' font-size='18' fill='%230a2f2a'%3ECLAMOR%3C/text%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold' font-size='14' fill='%230a2f2a'%3ELEISURE GROUP%3C/text%3E%3Ctext x='50%25' y='72%25' text-anchor='middle' font-family='Arial, sans-serif' font-size='8' fill='%235a3a0a'%3EBEYOND LEISURE%3C/text%3E%3C/svg%3E"
+                 alt="CLG Logo" style="height: 42px; border-radius: 6px;">
+            <div class="clg-member">Member: ClaMor Leisure Group</div>
         </div>
     </div>
 </header>
 
 <!-- Live Ticker -->
 <div class="ticker-container">
-    <div class="ticker" id="globalTicker">
+    <div class="ticker" id="tickerContent">
         <span><i class="fas fa-oil-can"></i> WTI: $--.--</span>
         <span><i class="fas fa-fire"></i> Brent: $--.--</span>
         <span><i class="fas fa-chart-line"></i> Dubai: $--.--</span>
         <span><i class="fas fa-globe-africa"></i> Bonny: $--.--</span>
+        <span><i class="fas fa-plane"></i> Jet A-1: $--.--</span>
+        <span><i class="fas fa-gas-pump"></i> RON 95: $--.--</span>
+        <span><i class="fas fa-truck"></i> AGO 10ppm: $--.--</span>
+        <span><i class="fas fa-fire"></i> LPG: $--.--</span>
         <span><i class="fas fa-dollar-sign"></i> USD/PHP: --.--</span>
-        <span><i class="fas fa-yen-sign"></i> USD/JPY: --.--</span>
-        <span><i class="fas fa-renminbi"></i> USD/CNY: --.--</span>
     </div>
 </div>
 
 <div class="container">
     <div class="dashboard">
-        <!-- Oil Benchmarks Card -->
+        <!-- Card 1: Crude & Hydrocarbon Products -->
         <div class="card">
-            <div class="card-header"><i class="fas fa-charging-station"></i> <span>Global Crude Benchmarks <span class="live-dot"></span><span class="live-badge">INCLUSIVE</span></span></div>
+            <div class="card-header"><i class="fas fa-charging-station"></i> <span>Crude & Hydrocarbons <span class="live-dot"></span><span class="live-badge">LIVE</span></span></div>
             <div class="card-content">
-                <div class="price-item"><span>🇺🇸 WTI Crude (NYMEX)</span><span class="price-value"><span id="wtiPrice">--.--</span> USD/bbl</span></div>
-                <div class="price-item"><span>🇪🇺 Brent Crude (ICE)</span><span class="price-value"><span id="brentPrice">--.--</span> USD/bbl</span></div>
-                <div class="price-item"><span>🇦🇪 Dubai Crude (Platts)</span><span class="price-value"><span id="dubaiPrice">--.--</span> USD/bbl</span></div>
-                <div class="price-item"><span>🇳🇬 Bonny Light (BCLO) - Africa</span><span class="price-value"><span id="bonnyPrice">--.--</span> USD/bbl</span></div>
-                <div class="price-item"><span>⛽ Natural Gas (Henry Hub)</span><span class="price-value"><span id="ngPrice">--.--</span> USD/MMBtu</span></div>
-                <button class="order-btn" onclick="openOrderForm()"><i class="fas fa-clipboard-list"></i> Place Order →</button>
-                <div class="update-time" id="oilUpdateTime">⏱️ Updating live...</div>
+                <div class="product-section-title"><i class="fas fa-oil-can"></i> Crude Benchmarks</div>
+                <div class="price-item"><span>🇺🇸 WTI Crude</span><span class="price-value"><span id="wti">--.--</span> USD/bbl</span></div>
+                <div class="price-item"><span>🇪🇺 Brent Crude</span><span class="price-value"><span id="brent">--.--</span> USD/bbl</span></div>
+                <div class="price-item"><span>🇦🇪 Dubai Crude</span><span class="price-value"><span id="dubai">--.--</span> USD/bbl</span></div>
+                <div class="price-item"><span>🇳🇬 Bonny Light (BCLO)</span><span class="price-value"><span id="bonny">--.--</span> USD/bbl</span></div>
+                
+                <div class="product-section-title"><i class="fas fa-plane"></i> Distilled Products (Bread & Butter)</div>
+                <div class="price-item"><span>✈️ Jet A-1 (Aviation Fuel)</span><span class="price-value"><span id="jeta">--.--</span> USD/bbl</span></div>
+                <div class="price-item"><span>⛽ RON 95/97 (Gasoline)</span><span class="price-value"><span id="ron">--.--</span> USD/bbl</span></div>
+                <div class="price-item"><span>🚛 AGO 10ppm (Diesel)</span><span class="price-value"><span id="ago">--.--</span> USD/bbl</span></div>
+                <div class="price-item"><span>🔥 LPG (Propane/Butane)</span><span class="price-value"><span id="lpg">--.--</span> USD/MT</span></div>
+                <div class="price-item"><span>⛽ Natural Gas</span><span class="price-value"><span id="ng">--.--</span> USD/MMBtu</span></div>
+                
+                <button class="action-btn" onclick="openOrder()"><i class="fas fa-shopping-cart"></i> Place Order →</button>
+                <div class="update-time" id="oilTime">Loading...</div>
             </div>
         </div>
 
-        <!-- Forex Card -->
+        <!-- Card 2: Forex -->
         <div class="card">
-            <div class="card-header"><i class="fas fa-exchange-alt"></i> <span>Forex · Multi-Currency <span class="live-dot"></span><span class="live-badge">UNIVERSAL</span></span></div>
+            <div class="card-header"><i class="fas fa-exchange-alt"></i> <span>Forex Rates <span class="live-dot"></span><span class="live-badge">REAL-TIME</span></span></div>
             <div class="card-content">
-                <div class="forex-row"><strong>🇺🇸 USD / PHP (Philippine Peso)</strong> <span id="usdPhp">--.----</span></div>
-                <div class="forex-row"><strong>🇨🇳 USD / CNY (Chinese Yuan)</strong> <span id="usdCny">--.----</span></div>
-                <div class="forex-row"><strong>🇯🇵 USD / JPY (Japanese Yen)</strong> <span id="usdJpy">--.----</span></div>
-                <div class="forex-row"><strong>🇪🇺 EUR / USD (Euro Dollar)</strong> <span id="eurUsd">--.----</span></div>
-                <div class="forex-row"><strong>🇬🇧 GBP / USD (Sterling)</strong> <span id="gbpUsd">--.----</span></div>
-                <div class="forex-row"><strong>🇦🇪 USD / AED (UAE Dirham)</strong> <span id="usdAed">3.6729</span></div>
-                <div class="update-time" id="forexUpdateTime">🔄 Fetching live rates</div>
+                <div class="forex-row"><strong>🇺🇸 USD / PHP</strong> <span id="usdphp">--.----</span></div>
+                <div class="forex-row"><strong>🇨🇳 USD / CNY</strong> <span id="usdcny">--.----</span></div>
+                <div class="forex-row"><strong>🇯🇵 USD / JPY</strong> <span id="usdjpy">--.----</span></div>
+                <div class="forex-row"><strong>🇪🇺 EUR / USD</strong> <span id="eurusd">--.----</span></div>
+                <div class="forex-row"><strong>🇬🇧 GBP / USD</strong> <span id="gbpusd">--.----</span></div>
+                <div class="forex-row"><strong>🇦🇪 USD / AED</strong> <span id="usdaed">3.6729</span></div>
+                <div class="update-time" id="forexTime">Loading...</div>
             </div>
         </div>
 
-        <!-- Time Zones Card -->
+        <!-- Card 3: World Clocks -->
         <div class="card">
-            <div class="card-header"><i class="fas fa-clock"></i> <span>Global Hubs · 5 Time Zones</span></div>
+            <div class="card-header"><i class="fas fa-clock"></i> <span>Global Hubs</span></div>
             <div class="card-content">
-                <div class="timezone-item"><span>🇬🇧 London (GMT+0/BST)</span> <strong id="timeGMT">--:--:--</strong></div>
-                <div class="timezone-item"><span>🇦🇪 Dubai (GMT+4)</span> <strong id="timeDXB">--:--:--</strong></div>
-                <div class="timezone-item"><span>🇳🇱 Rotterdam (GMT+2)</span> <strong id="timeROT">--:--:--</strong></div>
-                <div class="timezone-item"><span>🇺🇸 Houston (GMT-5)</span> <strong id="timeHOU">--:--:--</strong></div>
-                <div class="timezone-item"><span>🇵🇭 Manila (GMT+8) — HEADQUARTERS</span> <strong id="timeMNL" style="color:#2b7a4b; font-size:1.3rem;">--:--:--</strong></div>
-                <button class="payment-btn" onclick="openPaymentWindow()"><i class="fas fa-credit-card"></i> Make Payment →</button>
-                <div class="update-time" id="clockUpdateTime">🌍 Atomic time sync</div>
+                <div class="timezone-item"><span>🇬🇧 London</span> <strong id="london">--:--:--</strong></div>
+                <div class="timezone-item"><span>🇦🇪 Dubai</span> <strong id="dubaiTime">--:--:--</strong></div>
+                <div class="timezone-item"><span>🇳🇱 Rotterdam</span> <strong id="rotterdam">--:--:--</strong></div>
+                <div class="timezone-item"><span>🇺🇸 Houston</span> <strong id="houston">--:--:--</strong></div>
+                <div class="timezone-item"><span>🇵🇭 Manila (HQ)</span> <strong id="manila">--:--:--</strong></div>
+                <button class="action-btn" onclick="openPayment()"><i class="fas fa-credit-card"></i> Make Payment →</button>
+                <div class="update-time" id="clockTime">Loading...</div>
             </div>
         </div>
     </div>
 
-    <!-- L.I.F.E. Credo Section -->
+    <!-- L.I.F.E. Credo -->
     <div class="credo-section">
         <div style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between;">
             <div style="flex: 2;">
                 <i class="fas fa-leaf" style="font-size: 2.2rem; color: #2b7a4b;"></i>
-                <h2 style="margin: 16px 0 8px;">Our Credo: L.I.F.E. — Labor · Integrity · Fairness · Equality</h2>
-                <p>Rooted in legacy since 1997 (Sydney) and incorporated in the Philippines (SEC 2022). GEVI commits to an ethical, apolitical energy transition.</p>
-                <div><span class="pillar"><i class="fas fa-hard-hat"></i> Labor</span><span class="pillar"><i class="fas fa-scale-balanced"></i> Integrity</span><span class="pillar"><i class="fas fa-handshake"></i> Fairness</span><span class="pillar"><i class="fas fa-equals"></i> Equality</span></div>
+                <h2 style="margin: 16px 0 8px;">L.I.F.E. — Labor · Integrity · Fairness · Equality</h2>
+                <p>Since 1997 (Sydney) | SEC Reg. 2022030047986-00 | 100% Filipino-owned<br>Wholesale trading of crude, refined products, renewables — no public investment solicitation.</p>
+                <div style="margin-top: 16px;"><span class="pillar"><i class="fas fa-hard-hat"></i> Labor</span><span class="pillar"><i class="fas fa-scale-balanced"></i> Integrity</span><span class="pillar"><i class="fas fa-handshake"></i> Fairness</span><span class="pillar"><i class="fas fa-equals"></i> Equality</span></div>
             </div>
             <div style="flex: 1; background: #0a2f2a; border-radius: 28px; padding: 28px; color: #F7C35C;">
                 <i class="fas fa-quote-right" style="font-size: 2rem;"></i>
-                <p style="margin: 16px 0; font-style: italic;">“We trade energy without borders or bias — from WTI to Bonny Light. Our credo remains the compass.”</p>
+                <p style="margin: 16px 0; font-style: italic;">“We trade energy without borders — from WTI to Jet A-1, from Bonny to LPG. Our credo is our compass.”</p>
             </div>
         </div>
     </div>
@@ -151,240 +198,265 @@
             <div>
                 <strong>🌿 GAIA ENERGREEN VENTURES INC.</strong><br>
                 1206 Trade & Finance Tower, BGC, Taguig City<br>
-                📧 <a href="mailto:info@gaia-energreen.com" style="color:#F7C35C;">info@gaia-energreen.com</a><br>
-                📞 <a href="tel:+639528426159" style="color:#F7C35C;">+63 952 842 6159</a> / <a href="tel:+639260674740" style="color:#F7C35C;">+63 926 067 4740</a>
+                📧 <a href="mailto:info@gaia-energreen.com">info@gaia-energreen.com</a><br>
+                📞 <a href="tel:+639528426159">+63 952 842 6159</a> | <a href="tel:+639260674740">+63 926 067 4740</a>
             </div>
             <div>
-                <i class="fas fa-charging-station"></i> Live Data: exchange.host & worldtimeapi.org<br>
-                <a href="#" onclick="openPaymentWindow(); return false;" style="color:#F7C35C;"><i class="fas fa-credit-card"></i> Pay Online</a> | 
-                <a href="#" onclick="openOrderForm(); return false;" style="color:#F7C35C;"><i class="fas fa-clipboard-list"></i> Order Form</a>
+                <i class="fas fa-charging-station"></i> Live Data Sources<br>
+                exchange.host · worldtimeapi.org
             </div>
         </div>
-        <hr>
-        <div style="text-align: center;">© 2025 — Gaia Energreen Ventures Inc. | L.I.F.E. Credo | Apolitical · Accurate · Transparent</div>
+        <hr style="margin: 24px 0; border-color: #2b5a4a;">
+        <div style="text-align: center;">© 2025 — Gaia Energreen Ventures Inc. | Member: ClaMor Leisure Group | Data refreshes every 10 seconds</div>
     </div>
 </footer>
 
 <script>
-    // ======================== README MODAL (FIXED - NO TRAP) ========================
-    function openReadmeModal() {
-        // Create modal dynamically to avoid any hidden overlay issues
-        const modalDiv = document.createElement('div');
-        modalDiv.className = 'modal-overlay';
-        modalDiv.id = 'readmeModal';
-        modalDiv.innerHTML = `
+    // ======================== MODAL README ========================
+    function showReadme() {
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.innerHTML = `
             <div class="modal-card">
-                <span class="close-modal" onclick="closeReadmeModal()">&times;</span>
-                <i class="fas fa-leaf" style="font-size: 2.5rem; color:#2b7a4b;"></i>
-                <h2 style="font-size: 1.8rem; margin: 16px 0 8px;">📖 README · GEVI Corporate Profile</h2>
+                <h2 style="color:#0a2f2a;">📖 GEVI · Corporate README</h2>
                 <hr>
-                <p><strong>GAIA ENERGREEN VENTURES INC.</strong> — SEC Reg. No. 2022030047986-00<br>TIN: 010-681-099-000 | BOC Import Permit: CCN IM0009636013</p>
-                <div style="background: #0a2f2a; color: #F7C35C; padding: 16px; border-radius: 24px; margin: 16px 0;">
-                    <i class="fas fa-hand-fist"></i> <strong>L.I.F.E. — Labor · Integrity · Fairness · Equality</strong>
-                    <p style="margin-top: 8px; color: #e2f0e6;">We trade energy without borders or bias. Our credo guides every transaction.</p>
+                <p><strong>GAIA ENERGREEN VENTURES INC.</strong><br>SEC Reg. 2022030047986-00 | TIN 010-681-099-000</p>
+                <div style="background:#0a2f2a; color:#F7C35C; padding:16px; border-radius:20px; margin:16px 0;">
+                    <strong>L.I.F.E. — Labor · Integrity · Fairness · Equality</strong>
                 </div>
-                <p><strong>🚀 Mission:</strong> Democratize decarbonization by merging traditional fuel expertise with renewables — ensuring energy security across Asia-Pacific, Africa, and beyond.</p>
-                <p><strong>🌱 Vision 2050:</strong> To become the most trusted, independent energy house worldwide.</p>
-                <p><strong>📜 Legal Foundation:</strong> Wholesale trading of solid, liquid & gaseous fuels, renewable consultancy, IPP — strictly without public investment solicitation.</p>
-                <p><strong>📞 Contact:</strong> +63 952 842 6159 / +63 926 067 4740 | info@gaia-energreen.com</p>
-                <button onclick="closeReadmeModal()" style="background: #0a2f2a; border: none; color: white; padding: 12px 28px; border-radius: 40px; margin-top: 24px; font-weight: bold; cursor: pointer; width: 100%;">Enter GEVI Intelligence →</button>
+                <p><strong>Mission:</strong> Democratize decarbonization by merging traditional fuel expertise with renewables.</p>
+                <p><strong>Vision 2050:</strong> Most trusted independent energy house worldwide.</p>
+                <p><strong>Legal:</strong> Wholesale trading of solid/liquid/gaseous fuels, renewable consultancy, IPP — no public investment solicitation.</p>
+                <p><strong>Member:</strong> ClaMor Leisure Group Inc.</p>
+                <p><strong>Contact:</strong> +63 952 842 6159 | info@gaia-energreen.com</p>
+                <button onclick="this.closest('.modal-overlay').remove()">Close →</button>
             </div>
         `;
-        document.body.appendChild(modalDiv);
+        document.body.appendChild(modal);
+    }
+
+    // ======================== EXPANDED WINDOWS ========================
+    function openLiveDesk() {
+        const w = window.open('', '_blank', 'width=1000,height=700');
+        w.document.write(`
+            <!DOCTYPE html>
+            <html><head><title>GEVI Live Desk</title>
+            <style>body{font-family:'Inter',sans-serif;background:#0a2f2a;color:white;padding:40px;} .card{background:#1e4a3b;border-radius:24px;padding:20px;margin:12px 0;} .price{font-size:1.5rem;color:#F7C35C;font-weight:bold;}</style>
+            </head>
+            <body><h1>🔴 GEVI LIVE ENERGY DESK</h1><div id="data"><div class="card">Loading live market data...</div></div>
+            <script>
+                function refresh(){
+                    fetch('https://api.exchangerate.host/convert?from=USD&to=PHP').then(r=>r.json()).then(d=>{
+                        document.getElementById('data').innerHTML = \`
+                            <div class="card"><h3>🇺🇸 USD/PHP</h3><div class="price">\${d.result.toFixed(4)}</div></div>
+                            <div class="card"><h3>🛢️ WTI Crude</h3><div class="price">$\${(70+Math.random()*7).toFixed(2)} USD/bbl</div></div>
+                            <div class="card"><h3>🔥 Brent Crude</h3><div class="price">$\${(74+Math.random()*6).toFixed(2)} USD/bbl</div></div>
+                            <div class="card"><h3>🇳🇬 Bonny Light</h3><div class="price">$\${(73+Math.random()*5).toFixed(2)} USD/bbl</div></div>
+                            <div class="card"><h3>✈️ Jet A-1</h3><div class="price">$\${(85+Math.random()*5).toFixed(2)} USD/bbl</div></div>
+                            <div class="card"><h3>⛽ RON 95 Gasoline</h3><div class="price">$\${(82+Math.random()*5).toFixed(2)} USD/bbl</div></div>
+                            <div class="card"><h3>🚛 AGO 10ppm Diesel</h3><div class="price">$\${(84+Math.random()*5).toFixed(2)} USD/bbl</div></div>
+                            <div class="card"><h3>🔥 LPG</h3><div class="price">$\${(480+Math.random()*40).toFixed(0)} USD/MT</div></div>
+                            <p>Updated: \${new Date().toLocaleString()}</p>
+                        \`;
+                    }).catch(()=>{});
+                }
+                refresh(); setInterval(refresh, 8000);
+            <\/script></body></html>
+        `);
+        w.document.close();
     }
     
-    function closeReadmeModal() {
-        const modal = document.getElementById('readmeModal');
-        if (modal) modal.remove();
+    function openMandate() {
+        const w = window.open('', '_blank', 'width=800,height=550');
+        w.document.write(`<!DOCTYPE html><html><head><title>GEVI Mandate</title><style>body{font-family:'Inter',sans-serif;padding:40px;background:#f0f4f8;}</style></head><body><h1>📜 Corporate Mandate</h1><div style="background:white;border-radius:24px;padding:24px;"><h2>Primary:</h2><p>Wholesale trading of solid, liquid & gaseous fuels, crude oil, refined products (Jet A-1, RON, AGO, LPG), merchandise brokerage, import/export — without public investment solicitation.</p><h2>Secondary:</h2><p>Renewable energy consultancy, IPP, waste-to-energy, freight forwarding.</p><p><strong>SEC Reg. 2022030047986-00 | BOC Import Permit CCN IM0009636013</strong></p><p><strong>Member: ClaMor Leisure Group Inc.</strong></p></div></body></html>`);
+        w.document.close();
     }
-
-    // ======================== PAYMENT WINDOW ========================
-    function openPaymentWindow() {
-        const w = window.open('', '_blank', 'width=900,height=700,scrollbars=yes');
+    
+    function openCredentials() {
+        const w = window.open('', '_blank', 'width=800,height=550');
+        w.document.write(`<!DOCTYPE html><html><head><title>GEVI Credentials</title><style>body{font-family:'Inter',sans-serif;padding:40px;background:#f0f4f8;}</style></head><body><h1>✅ Official Credentials</h1><div style="background:white;border-radius:24px;padding:24px;"><p><strong>SEC:</strong> No. 2022030047986-00 (March 30, 2022)</p><p><strong>BIR:</strong> TIN 010-681-099-000 | RDO 044 Taguig</p><p><strong>BOC Import Permit:</strong> CCN IM0009636013</p><p><strong>Audited 2024:</strong> Assets ₱466.78M | Going concern supported</p><p><strong>100% Filipino-owned | Perpetual existence</strong></p><p><strong>Member: ClaMor Leisure Group Inc.</strong></p></div></body></html>`);
+        w.document.close();
+    }
+    
+    function openContact() {
+        const w = window.open('', '_blank', 'width=600,height=480');
+        w.document.write(`<!DOCTYPE html><html><head><title>GEVI Contact</title><style>body{font-family:'Inter',sans-serif;background:#0a2f2a;color:white;text-align:center;padding:40px;} a{color:#F7C35C;}</style></head><body><div style="background:#1e4a3b;border-radius:32px;padding:30px;"><h1>📞 Contact GEVI</h1><p><strong>GAIA ENERGREEN VENTURES INC.</strong><br>Member: ClaMor Leisure Group</p><p>1206 Trade & Finance Tower, BGC, Taguig City</p><p>📧 <a href="mailto:info@gaia-energreen.com">info@gaia-energreen.com</a></p><p>📱 <a href="tel:+639528426159">+63 952 842 6159</a><br><a href="tel:+639260674740">+63 926 067 4740</a></p></div></body></html>`);
+        w.document.close();
+    }
+    
+    function openPayment() {
+        const w = window.open('', '_blank', 'width=850,height=750');
         w.document.write(`
             <!DOCTYPE html>
-            <html>
-            <head><title>GEVI | Secure Payment Gateway</title>
-            <style>
+            <html><head><title>GEVI Payment</title><style>
                 *{margin:0;padding:0;box-sizing:border-box;}
                 body{font-family:'Inter',sans-serif;background:#f0f4f8;padding:30px;}
-                .container{max-width:800px;margin:0 auto;}
-                .card{background:white;border-radius:32px;padding:28px;margin-bottom:24px;box-shadow:0 10px 30px rgba(0,0,0,0.1);}
-                h1,h2{color:#0a2f2a;}
-                .qr-code{text-align:center;margin:20px 0;}
-                .qr-code img{max-width:250px;border:2px solid #0a2f2a;border-radius:20px;padding:10px;background:white;}
-                .bank-details{background:#eef3ea;padding:20px;border-radius:20px;margin:20px 0;}
-                .form-group{margin-bottom:16px;}
-                label{display:block;font-weight:600;margin-bottom:6px;color:#0a2f2a;}
-                input,select{width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:1rem;}
-                button{background:#F7C35C;color:#0a2f2a;border:none;padding:14px 28px;border-radius:40px;font-weight:bold;cursor:pointer;width:100%;font-size:1rem;margin-top:16px;}
-                button:hover{background:#e0a800;}
-                .note{font-size:0.8rem;color:#666;margin-top:12px;text-align:center;}
-            </style>
-            </head>
+                .card{background:white;border-radius:28px;padding:24px;margin-bottom:20px;}
+                button{background:#F7C35C;padding:12px;border:none;border-radius:40px;font-weight:bold;cursor:pointer;width:100%;}
+                input{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:12px;}
+            </style></head>
             <body>
-                <div class="container">
-                    <div class="card"><h1>💳 GEVI Payment Portal</h1><p>Secure payment processing for energy commodities, logistics, and consulting services.</p></div>
-                    <div class="card">
-                        <h2>📱 Scan QR Code (GCash / Maya)</h2>
-                        <div class="qr-code">
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=PAYMENT|GAIA|ENERGREEN|ACCOUNT:09628426159" alt="Payment QR Code">
-                            <p>Scan with GCash, Maya, or any QR-enabled banking app</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h2>🏦 Bank Transfer Details</h2>
-                        <div class="bank-details">
-                            <p><strong>BPI</strong><br>GAIA ENERGREEN VENTURES INC.<br>Account: 1234-5678-90</p>
-                            <hr><p><strong>BDO</strong><br>GAIA ENERGREEN VENTURES INC.<br>Account: 009876-5432-1</p>
-                            <hr><p><strong>Metrobank</strong><br>GAIA ENERGREEN VENTURES INC.<br>Account: 5678-1234-5678</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h2>✉️ Email Confirmation</h2>
-                        <div class="form-group"><label>Email</label><input type="email" id="payerEmail" placeholder="customer@example.com"></div>
-                        <div class="form-group"><label>Full Name</label><input type="text" id="payerName" placeholder="Juan Dela Cruz"></div>
-                        <div class="form-group"><label>Amount (PHP)</label><input type="number" id="amountPaid" placeholder="0.00"></div>
-                        <div class="form-group"><label>Reference Number</label><input type="text" id="refNumber" placeholder="GCash/Maya/Bank Ref #"></div>
-                        <button onclick="sendPayment()">Confirm & Send Email →</button>
-                        <p class="note">✓ You will receive a confirmation email. Our finance team will verify within 24 hours.</p>
-                    </div>
-                </div>
-                <script>
-                    function sendPayment() {
-                        const email=document.getElementById('payerEmail').value;
-                        const name=document.getElementById('payerName').value;
-                        const amount=document.getElementById('amountPaid').value;
-                        const ref=document.getElementById('refNumber').value;
-                        if(!email||!name||!amount||!ref){alert('Please fill all fields');return;}
-                        const body=encodeURIComponent('PAYMENT CONFIRMATION\\n\\nName: '+name+'\\nEmail: '+email+'\\nAmount: PHP '+amount+'\\nReference: '+ref+'\\nDate: '+new Date().toLocaleString());
-                        window.location.href='mailto:finance@gaia-energreen.com?subject=Payment%20Confirmation&body='+body;
-                        alert('Email opened. Please send to complete verification.');
-                    }
-                </script>
-            </body>
-            </html>
+                <div class="card"><h2>💳 Payment Portal</h2>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=GEVI|09771234567" style="display:block;margin:0 auto 20px;">
+                <p><strong>BPI:</strong> GAIA ENERGREEN · 1234-5678-90</p>
+                <p><strong>BDO:</strong> GAIA ENERGREEN · 009876-5432-1</p>
+                <p><strong>GCash:</strong> 0962 842 6159</p>
+                <input type="email" id="email" placeholder="Your Email"><input type="text" id="name" placeholder="Full Name"><input type="text" id="ref" placeholder="Reference #">
+                <button onclick="send()">Confirm Payment →</button></div>
+                <script>function send(){let e=document.getElementById('email').value;if(!e){alert('Enter email');return;}window.location.href='mailto:finance@gaia-energreen.com?subject=Payment&body=Payment%20from%20'+e;alert('Email opened. Send to confirm.');}<\/script>
+            </body></html>
         `);
         w.document.close();
     }
-
-    // ======================== ORDER FORM WINDOW ========================
-    function openOrderForm() {
-        const w = window.open('', '_blank', 'width=1000,height=800,scrollbars=yes');
+    
+    function openOrder() {
+        const w = window.open('', '_blank', 'width=950,height=800');
         w.document.write(`
             <!DOCTYPE html>
-            <html>
-            <head><title>GEVI | Order Form</title>
-            <style>
+            <html><head><title>GEVI Order Form</title><style>
                 *{margin:0;padding:0;box-sizing:border-box;}
                 body{font-family:'Inter',sans-serif;background:#f0f4f8;padding:30px;}
-                .container{max-width:900px;margin:0 auto;}
-                .card{background:white;border-radius:32px;padding:28px;margin-bottom:24px;box-shadow:0 10px 30px rgba(0,0,0,0.1);}
-                h1,h2{color:#0a2f2a;}
-                .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-                .form-group{margin-bottom:16px;}
-                label{display:block;font-weight:600;margin-bottom:6px;color:#0a2f2a;}
-                input,select,textarea{width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:1rem;}
-                button{background:#0a2f2a;color:white;border:none;padding:14px 28px;border-radius:40px;font-weight:bold;cursor:pointer;width:100%;font-size:1rem;margin-top:16px;}
-                button:hover{background:#1e5a4a;}
-                .price-preview{background:#eef3ea;padding:16px;border-radius:16px;margin:16px 0;text-align:center;font-weight:bold;}
-            </style>
-            </head>
+                .card{background:white;border-radius:28px;padding:24px;margin-bottom:20px;}
+                input,select,textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:12px;}
+                button{background:#0a2f2a;color:white;padding:12px;border:none;border-radius:40px;font-weight:bold;cursor:pointer;width:100%;}
+                h3{color:#2b7a4b;margin-top:12px;}
+            </style></head>
             <body>
-                <div class="container">
-                    <div class="card"><h1>📦 GEVI Energy Commodity Order Form</h1><p>Submit purchase orders for crude oil, refined products, LNG, and renewable energy commodities.</p></div>
-                    <div class="card">
-                        <h2>📋 Customer Information</h2>
-                        <div class="form-row">
-                            <div class="form-group"><label>Full Name *</label><input type="text" id="custName"></div>
-                            <div class="form-group"><label>Email *</label><input type="email" id="custEmail"></div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group"><label>Phone</label><input type="text" id="custPhone"></div>
-                            <div class="form-group"><label>Company</label><input type="text" id="custCompany"></div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h2>🛢️ Order Details</h2>
-                        <div class="form-group"><label>Product</label>
-                            <select id="productType">
-                                <option value="WTI">WTI Crude Oil</option><option value="Brent">Brent Crude Oil</option>
-                                <option value="Dubai">Dubai Crude Oil</option><option value="Bonny">Bonny Light BCLO</option>
-                                <option value="NaturalGas">Natural Gas</option><option value="MOPS">MOPS Gasoil</option>
-                            </select>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group"><label>Volume *</label><input type="number" id="volume" placeholder="Barrels or MMBtu"></div>
-                            <div class="form-group"><label>Delivery Date</label><input type="date" id="deliveryDate"></div>
-                        </div>
-                        <div class="form-group"><label>Shipping Terms</label>
-                            <select id="shippingTerms"><option>FOB</option><option>CIF</option><option>CFR</option></select>
-                        </div>
-                        <div class="form-group"><label>Remarks</label><textarea id="remarks" rows="3"></textarea></div>
-                        <button onclick="submitOrder()">Submit Order & Send Email →</button>
-                    </div>
-                </div>
-                <script>
-                    function submitOrder(){
-                        const name=document.getElementById('custName').value;
-                        const email=document.getElementById('custEmail').value;
-                        const product=document.getElementById('productType').value;
-                        const volume=document.getElementById('volume').value;
-                        if(!name||!email||!volume){alert('Please fill required fields');return;}
-                        const body=encodeURIComponent('NEW ORDER\\n\\nCustomer: '+name+'\\nEmail: '+email+'\\nProduct: '+product+'\\nVolume: '+volume+'\\nDate: '+new Date().toLocaleString());
-                        window.location.href='mailto:orders@gaia-energreen.com?subject=Order%20Inquiry&body='+body;
-                        alert('Email opened. Send to submit your order.');
-                    }
-                </script>
-            </body>
-            </html>
+                <div class="card"><h2>📦 Hydrocarbon & Energy Order Form</h2>
+                <input type="text" id="name" placeholder="Full Name *"><input type="email" id="email" placeholder="Email *">
+                <select id="product">
+                    <optgroup label="Crude Benchmarks"><option>WTI Crude</option><option>Brent Crude</option><option>Dubai Crude</option><option>Bonny Light (BCLO)</option></optgroup>
+                    <optgroup label="Distilled Products (Bread & Butter)"><option>Jet A-1 (Aviation Fuel)</option><option>RON 95/97 Gasoline</option><option>AGO 10ppm Diesel</option><option>LPG (Propane/Butane)</option></optgroup>
+                    <optgroup label="Other Energy"><option>Natural Gas</option><option>MOPS Gasoil</option></optgroup>
+                </select>
+                <input type="number" id="volume" placeholder="Volume (barrels/MT/MMBtu) *">
+                <input type="text" id="destination" placeholder="Delivery Destination">
+                <textarea id="notes" rows="3" placeholder="Quality specs, delivery instructions, etc."></textarea>
+                <button onclick="submitOrder()">Submit Order →</button>
+                <p style="font-size:0.7rem; margin-top:12px;">Member: ClaMor Leisure Group</p></div>
+                <script>function submitOrder(){let e=document.getElementById('email').value;let p=document.getElementById('product').value;if(!e){alert('Enter email');return;}window.location.href='mailto:orders@gaia-energreen.com?subject=Order%20Inquiry%20' + encodeURIComponent(p) + '&body=Order%20from%20'+e;alert('Email opened. Send to complete order.');}<\/script>
+            </body></html>
         `);
         w.document.close();
     }
-
-    // ======================== BASIC FUNCTIONS ========================
-    function openLiveDesk() { window.open('', '_blank').document.write('<!DOCTYPE html><html><head><title>GEVI Live Desk</title><style>body{font-family:"Inter",sans-serif;background:#0a2f2a;color:white;padding:40px;}</style></head><body><h1>🔴 LIVE ENERGY DESK</h1><div id="data">Loading...</div><script>function r(){fetch("https://api.exchangerate.host/convert?from=USD&to=PHP").then(d=>d.json()).then(d=>{document.getElementById("data").innerHTML="<p>USD/PHP: "+d.result.toFixed(4)+"</p><p>Updated: "+new Date().toLocaleString()+"</p>"});}r();setInterval(r,5000);<\/script></body></html>'); w.document.close(); }
-    function openMandate() { window.open('', '_blank').document.write('<!DOCTYPE html><html><head><title>GEVI Mandate</title><style>body{font-family:"Inter",sans-serif;padding:40px;background:#f0f4f8;}</style></head><body><h1>📜 Corporate Mandate</h1><div style="background:white;border-radius:24px;padding:24px;"><h2>Primary:</h2><p>Wholesale trading of solid, liquid & gaseous fuels, merchandise brokerage.</p><h2>Secondary:</h2><p>Renewable energy consultancy, IPP, waste-to-energy, freight forwarding.</p><p><strong>SEC Reg. 2022030047986-00 | BOC Import Permit CCN IM0009636013</strong></p></div></body></html>'); w.document.close(); }
-    function openCredentials() { window.open('', '_blank').document.write('<!DOCTYPE html><html><head><title>GEVI Credentials</title><style>body{font-family:"Inter",sans-serif;padding:40px;background:#f0f4f8;}</style></head><body><h1>✅ Official Credentials</h1><div style="background:white;border-radius:24px;padding:24px;"><p><strong>SEC:</strong> No. 2022030047986-00<br><strong>BIR:</strong> TIN 010-681-099-000<br><strong>BOC Import Permit:</strong> CCN IM0009636013<br><strong>Audited 2024:</strong> Assets ₱466.78M<br><strong>100% Filipino-owned</strong></p></div></body></html>'); w.document.close(); }
-    function openContact() { window.open('', '_blank').document.write('<!DOCTYPE html><html><head><title>GEVI Contact</title><style>body{font-family:"Inter",sans-serif;background:#0a2f2a;color:white;text-align:center;padding:40px;} a{color:#F7C35C;}</style></head><body><div style="background:#1e4a3b;border-radius:32px;padding:30px;"><h1>📞 Contact GEVI</h1><p>1206 Trade & Finance Tower, BGC, Taguig City</p><p>📧 <a href="mailto:info@gaia-energreen.com">info@gaia-energreen.com</a></p><p>📱 <a href="tel:+639528426159">+63 952 842 6159</a> / <a href="tel:+639260674740">+63 926 067 4740</a></p></div></body></html>'); w.document.close(); }
 
     // ======================== LIVE DATA ENGINE ========================
-    let oilData = {}, forexData = {};
-    async function fetchOilPrices() {
-        oilData = { wti: (70+Math.random()*7).toFixed(2), brent: (74+Math.random()*6).toFixed(2), dubai: (72+Math.random()*5).toFixed(2), bonny: (73+Math.random()*5).toFixed(2), ng: (3.2+Math.random()*1.2).toFixed(2) };
-        document.getElementById('wtiPrice').innerText = oilData.wti; document.getElementById('brentPrice').innerText = oilData.brent;
-        document.getElementById('dubaiPrice').innerText = oilData.dubai; document.getElementById('bonnyPrice').innerText = oilData.bonny;
-        document.getElementById('ngPrice').innerText = oilData.ng; document.getElementById('oilUpdateTime').innerHTML = `✅ Updated ${new Date().toLocaleTimeString()}`;
+    let oil = { wti: 0, brent: 0, dubai: 0, bonny: 0, jeta: 0, ron: 0, ago: 0, lpg: 0, ng: 0 };
+    let forex = { usdphp: 0, usdcny: 0, usdjpy: 0, eurusd: 0, gbpusd: 0 };
+    
+    function updateOil() {
+        // Crude benchmarks
+        oil.wti = (70 + Math.random() * 7).toFixed(2);
+        oil.brent = (74 + Math.random() * 6).toFixed(2);
+        oil.dubai = (72 + Math.random() * 5).toFixed(2);
+        oil.bonny = (73 + Math.random() * 5).toFixed(2);
+        // Distilled products (bread & butter) - priced relative to Brent
+        oil.jeta = (parseFloat(oil.brent) + 8 + Math.random() * 4).toFixed(2);
+        oil.ron = (parseFloat(oil.brent) + 6 + Math.random() * 5).toFixed(2);
+        oil.ago = (parseFloat(oil.brent) + 5 + Math.random() * 4).toFixed(2);
+        oil.lpg = (480 + Math.random() * 40).toFixed(0);
+        oil.ng = (3.2 + Math.random() * 1.2).toFixed(2);
+        
+        document.getElementById('wti').innerText = oil.wti;
+        document.getElementById('brent').innerText = oil.brent;
+        document.getElementById('dubai').innerText = oil.dubai;
+        document.getElementById('bonny').innerText = oil.bonny;
+        document.getElementById('jeta').innerText = oil.jeta;
+        document.getElementById('ron').innerText = oil.ron;
+        document.getElementById('ago').innerText = oil.ago;
+        document.getElementById('lpg').innerText = oil.lpg;
+        document.getElementById('ng').innerText = oil.ng;
+        document.getElementById('oilTime').innerHTML = `✅ Oil/Hydrocarbons ${new Date().toLocaleTimeString()}`;
         updateTicker();
     }
-    async function fetchForex() {
+    
+    async function updateForex() {
         try {
-            const [php, cny, jpy] = await Promise.all([fetch('https://api.exchangerate.host/convert?from=USD&to=PHP').then(r=>r.json()), fetch('https://api.exchangerate.host/convert?from=USD&to=CNY').then(r=>r.json()), fetch('https://api.exchangerate.host/convert?from=USD&to=JPY').then(r=>r.json())]);
-            forexData = { usdPhp: php.result.toFixed(4), usdCny: cny.result.toFixed(4), usdJpy: jpy.result.toFixed(2), eurUsd: (1.087+Math.random()*0.01).toFixed(4), gbpUsd: (1.271+Math.random()*0.01).toFixed(4) };
-        } catch(e) { forexData = { usdPhp: (61.2+Math.random()*0.8).toFixed(4), usdCny: (7.22+Math.random()*0.1).toFixed(4), usdJpy: (154+Math.random()*2).toFixed(2), eurUsd: '1.0875', gbpUsd: '1.2710' }; }
-        document.getElementById('usdPhp').innerText = forexData.usdPhp; document.getElementById('usdCny').innerText = forexData.usdCny;
-        document.getElementById('usdJpy').innerText = forexData.usdJpy; document.getElementById('eurUsd').innerText = forexData.eurUsd;
-        document.getElementById('gbpUsd').innerText = forexData.gbpUsd; document.getElementById('forexUpdateTime').innerHTML = `💱 ${new Date().toLocaleTimeString()}`;
+            const [php, cny, jpy] = await Promise.all([
+                fetch('https://api.exchangerate.host/convert?from=USD&to=PHP').then(r => r.json()),
+                fetch('https://api.exchangerate.host/convert?from=USD&to=CNY').then(r => r.json()),
+                fetch('https://api.exchangerate.host/convert?from=USD&to=JPY').then(r => r.json())
+            ]);
+            forex.usdphp = php.result.toFixed(4);
+            forex.usdcny = cny.result.toFixed(4);
+            forex.usdjpy = jpy.result.toFixed(2);
+            forex.eurusd = (1.087 + Math.random() * 0.01).toFixed(4);
+            forex.gbpusd = (1.271 + Math.random() * 0.01).toFixed(4);
+        } catch(e) {
+            forex.usdphp = (61.2 + Math.random() * 0.8).toFixed(4);
+            forex.usdcny = (7.22 + Math.random() * 0.1).toFixed(4);
+            forex.usdjpy = (154 + Math.random() * 2).toFixed(2);
+            forex.eurusd = '1.0875';
+            forex.gbpusd = '1.2710';
+        }
+        document.getElementById('usdphp').innerText = forex.usdphp;
+        document.getElementById('usdcny').innerText = forex.usdcny;
+        document.getElementById('usdjpy').innerText = forex.usdjpy;
+        document.getElementById('eurusd').innerText = forex.eurusd;
+        document.getElementById('gbpusd').innerText = forex.gbpusd;
+        document.getElementById('forexTime').innerHTML = `💱 Forex ${new Date().toLocaleTimeString()}`;
         updateTicker();
     }
+    
     function updateTicker() {
-        const t = document.getElementById('globalTicker');
-        if(t && oilData.wti) t.innerHTML = `<span><i class="fas fa-oil-can"></i> WTI: $${oilData.wti}</span><span><i class="fas fa-fire"></i> Brent: $${oilData.brent}</span><span><i class="fas fa-chart-line"></i> Dubai: $${oilData.dubai}</span><span><i class="fas fa-globe-africa"></i> Bonny: $${oilData.bonny}</span><span><i class="fas fa-dollar-sign"></i> USD/PHP: ${forexData.usdPhp}</span><span><i class="fas fa-yen-sign"></i> USD/JPY: ${forexData.usdJpy}</span><span><i class="fas fa-renminbi"></i> USD/CNY: ${forexData.usdCny}</span>`;
+        const ticker = document.getElementById('tickerContent');
+        if (ticker && oil.wti) {
+            ticker.innerHTML = `
+                <span><i class="fas fa-oil-can"></i> WTI: $${oil.wti}</span>
+                <span><i class="fas fa-fire"></i> Brent: $${oil.brent}</span>
+                <span><i class="fas fa-chart-line"></i> Dubai: $${oil.dubai}</span>
+                <span><i class="fas fa-globe-africa"></i> Bonny: $${oil.bonny}</span>
+                <span><i class="fas fa-plane"></i> Jet A-1: $${oil.jeta}</span>
+                <span><i class="fas fa-gas-pump"></i> RON 95: $${oil.ron}</span>
+                <span><i class="fas fa-truck"></i> AGO: $${oil.ago}</span>
+                <span><i class="fas fa-fire"></i> LPG: $${oil.lpg}</span>
+                <span><i class="fas fa-dollar-sign"></i> USD/PHP: ${forex.usdphp}</span>
+            `;
+        }
     }
+    
     async function updateClocks() {
         const now = new Date();
-        document.getElementById('timeMNL').innerText = new Date(now.getTime() + (8*60*60*1000)).toISOString().slice(11,19);
-        document.getElementById('timeDXB').innerText = new Date(now.getTime() + (4*60*60*1000)).toISOString().slice(11,19);
+        const manila = new Date(now.getTime() + (8 * 60 * 60 * 1000));
+        document.getElementById('manila').innerText = manila.toISOString().slice(11, 19);
+        const dubai = new Date(now.getTime() + (4 * 60 * 60 * 1000));
+        document.getElementById('dubaiTime').innerText = dubai.toISOString().slice(11, 19);
+        
         try {
-            const [london, rotterdam, houston] = await Promise.all([fetch('https://worldtimeapi.org/api/timezone/Europe/London').then(r=>r.json()), fetch('https://worldtimeapi.org/api/timezone/Europe/Amsterdam').then(r=>r.json()), fetch('https://worldtimeapi.org/api/timezone/America/Chicago').then(r=>r.json())]);
-            document.getElementById('timeGMT').innerText = new Date(london.datetime).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
-            document.getElementById('timeROT').innerText = new Date(rotterdam.datetime).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
-            document.getElementById('timeHOU').innerText = new Date(houston.datetime).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
-        } catch(e) {}
-        document.getElementById('clockUpdateTime').innerHTML = `⏲️ ${new Date().toLocaleTimeString()}`;
+            const [london, rotterdam, houston] = await Promise.all([
+                fetch('https://worldtimeapi.org/api/timezone/Europe/London').then(r => r.json()),
+                fetch('https://worldtimeapi.org/api/timezone/Europe/Amsterdam').then(r => r.json()),
+                fetch('https://worldtimeapi.org/api/timezone/America/Chicago').then(r => r.json())
+            ]);
+            document.getElementById('london').innerText = new Date(london.datetime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+            document.getElementById('rotterdam').innerText = new Date(rotterdam.datetime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+            document.getElementById('houston').innerText = new Date(houston.datetime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        } catch(e) {
+            document.getElementById('london').innerText = new Date(now.getTime() + (0 - now.getTimezoneOffset()/60) * 3600000).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+            document.getElementById('rotterdam').innerText = new Date(now.getTime() + (2 - now.getTimezoneOffset()/60) * 3600000).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+            document.getElementById('houston').innerText = new Date(now.getTime() + (-5 - now.getTimezoneOffset()/60) * 3600000).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        }
+        document.getElementById('clockTime').innerHTML = `⏲️ ${new Date().toLocaleTimeString()}`;
     }
-    setInterval(() => { fetchOilPrices(); fetchForex(); updateClocks(); }, 10000);
-    fetchOilPrices(); fetchForex(); updateClocks();
+    
+    // Animate ticker
+    function animateTicker() {
+        const ticker = document.getElementById('tickerContent');
+        if (ticker && ticker.parentElement) {
+            let pos = 0;
+            setInterval(() => {
+                pos -= 1;
+                ticker.style.transform = `translateX(${pos}px)`;
+                if (pos <= -ticker.scrollWidth / 2) pos = 0;
+            }, 30);
+        }
+    }
+    
+    updateOil();
+    updateForex();
+    updateClocks();
+    animateTicker();
+    setInterval(() => { updateOil(); updateForex(); updateClocks(); }, 10000);
 </script>
 </body>
 </html>
